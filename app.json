@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Newzy AI",
+    "slug": "newzy-ai",
+    "version": "1.0.0",
+    "scheme": "newzy",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": { "backgroundColor": "#0C0F14", "resizeMode": "contain" },
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.newzyai.app" },
+    "android": { "package": "com.newzyai.app" },
+    "plugins": ["expo-router"]
+  }
+}

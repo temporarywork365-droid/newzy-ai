@@ -1,0 +1,192 @@
+import type { AgentLesson } from '@/types';
+
+export const agentLessons: AgentLesson[] = [
+  {
+    id: 'what-is-an-agent', title: 'What is an AI Agent?', order: 1,
+    summary: 'The loop that turns a chatbot into something that gets work done.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'A chat model answers once. An agent keeps working: it decides a next action, executes it, observes the result, and repeats until the task is done. That loop — plan, act, observe, repeat — is the entire secret.' },
+      { kind: 'heading', text: 'The loop' },
+      { kind: 'bullets', items: [
+        'Plan: the model decomposes the goal into a next action.',
+        'Act: it calls a tool — search, code, a file edit, an API.',
+        'Observe: the result enters the conversation as context.',
+        'Repeat: it decides again, until the goal is met or a limit hits.',
+      ] },
+      { kind: 'callout', tone: 'info', text: 'Autonomy is a spectrum: assisted agents suggest the next action, semi-autonomous ones execute with approval, autonomous ones run for hours and open a pull request.' },
+      { kind: 'paragraph', text: 'Reliability comes from structure, not bravery: narrow tool sets, verification steps and human checkpoints turn a demo into a deployable system.' },
+    ],
+    relatedAgentIds: ['claude-code'], relatedConceptIds: ['ai-agents'],
+    tags: ['agents', 'basics'],
+  },
+  {
+    id: 'chatbot-vs-agent', title: 'Chatbot vs Agent', order: 2,
+    summary: 'One answers questions. The other completes tasks. Know when you need which.',
+    readMinutes: 5,
+    content: [
+      { kind: 'paragraph', text: 'The difference is not intelligence — it\u2019s the loop. A chatbot produces text and stops. An agent produces actions and keeps going until the outcome exists in the real world.' },
+      { kind: 'heading', text: 'Side by side' },
+      { kind: 'bullets', items: [
+        'Turns: chatbot = one response; agent = many, driven by results.',
+        'Capabilities: chatbot = text only; agent = tools, files, APIs, code.',
+        'Control: you drive a chatbot; the agent drives itself within limits.',
+        'Failure: a chatbot gives a wrong answer; an agent takes a wrong action.',
+      ] },
+      { kind: 'callout', tone: 'success', text: 'Rule of thumb: if the task ends with words, use a chatbot. If it ends with a changed system — code merged, ticket closed, email sent — you need an agent.' },
+    ],
+    relatedAgentIds: ['julius'], relatedConceptIds: ['ai-agents'],
+    tags: ['agents', 'comparison'],
+  },
+  {
+    id: 'agent-planning', title: 'Planning', order: 3,
+    summary: 'How agents break a goal into steps — and replan when reality disagrees.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'Planning is the model decomposing "fix the failing test" into: read the code, run the tests, identify the failing assertion, edit, re-run, summarize. Good plans are short, ordered, and revisable.' },
+      { kind: 'heading', text: 'What makes planning work' },
+      { kind: 'bullets', items: [
+        'Decomposition: one goal becomes a handful of concrete next actions.',
+        'Replanning: every observation can rewrite the remaining steps.',
+        'Stopping rules: explicit done-conditions and step budgets prevent infinite loops.',
+      ] },
+      { kind: 'paragraph', text: 'The classic failure is over-planning: elaborate step lists that reality invalidates by step two. Production agents plan one or two moves ahead and adapt — chess, not prophecy.' },
+    ],
+    relatedAgentIds: ['devin'], relatedConceptIds: ['ai-agents', 'multi-agent-systems'],
+    tags: ['planning', 'agents'],
+  },
+  {
+    id: 'agent-tools', title: 'Tools', order: 4,
+    summary: 'The hands of an agent: everything it can actually touch.',
+    readMinutes: 5,
+    content: [
+      { kind: 'paragraph', text: 'A tool is any capability the host runtime gives the model: a search function, a code interpreter, a file editor, an API client. The model chooses and parameterizes; the runtime executes safely.' },
+      { kind: 'bullets', items: [
+        'Read tools: search, fetch, database queries — no side effects.',
+        'Write tools: file edits, API calls, sends — side effects, need guardrails.',
+        'Admin tools: installs, payments, deletions — gate behind humans.',
+      ] },
+      { kind: 'callout', tone: 'warning', text: 'Tool sprawl degrades accuracy. Agents with 5 well-described tools outperform agents with 50 vague ones.' },
+    ],
+    relatedAgentIds: ['lindy'], relatedConceptIds: ['tool-calling'],
+    tags: ['tools', 'agents'],
+  },
+  {
+    id: 'agent-memory', title: 'Memory', order: 5,
+    summary: 'Three kinds of remembering — and why most agents only need one.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'The context window is the agent\u2019s working memory: everything in the current loop. It resets between runs unless you build persistence — that persistence is memory.' },
+      { kind: 'heading', text: 'The three layers' },
+      { kind: 'bullets', items: [
+        'Scratchpad: notes the agent writes to itself mid-task (often just the transcript).',
+        'Session memory: state kept across one user\u2019s conversation.',
+        'Long-term memory: a vector store the agent retrieves from — your docs, past runs, preferences.',
+      ] },
+      { kind: 'paragraph', text: 'Most production agents need only a scratchpad plus rules. Long-term memory pays off when tasks repeat and context outgrows the window — which is exactly when retrieval (RAG) enters the design.' },
+    ],
+    relatedAgentIds: ['manus'], relatedConceptIds: ['ai-agents', 'rag'],
+    tags: ['memory', 'agents'],
+  },
+  {
+    id: 'agent-tool-calling', title: 'Tool Calling', order: 6,
+    summary: 'The mechanism: how a model invokes a real function mid-task.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'Tools are declared with typed schemas. The model sees the schemas, decides a call is needed, and emits structured arguments — valid JSON matching the schema — instead of prose. Your code executes it and returns the result.' },
+      { kind: 'heading', text: 'One round trip' },
+      { kind: 'bullets', items: [
+        'Declare: register tools with name, description, parameter schema.',
+        'Decide: the model picks a tool and fills the arguments.',
+        'Execute: the runtime runs it — never the model itself.',
+        'Observe: the result re-enters context for the next decision.',
+      ] },
+      { kind: 'callout', tone: 'info', text: 'Function calling, tool use and MCP are variations of this same loop — different wrappers, one mechanism.' },
+    ],
+    relatedAgentIds: ['claude-code'], relatedConceptIds: ['tool-calling', 'mcp', 'function-calling'],
+    tags: ['tools', 'function calling'],
+  },
+  {
+    id: 'agent-actions', title: 'Actions', order: 7,
+    summary: 'When tools touch the real world, permissions become the product.',
+    readMinutes: 5,
+    content: [
+      { kind: 'paragraph', text: 'A response is text; an action changes state — an email sent, a refund issued, a file deleted. Actions are where agents become useful and dangerous at the same time.' },
+      { kind: 'bullets', items: [
+        'Least privilege: grant the minimum tool set the task needs.',
+        'Approval gates: side effects above a risk threshold require a human yes.',
+        'Reversibility: prefer actions you can undo; log everything you can\u2019t.',
+      ] },
+      { kind: 'callout', tone: 'warning', text: 'The safe default is: agent drafts, human sends. Promote an action to autonomous only after its error rate earns it.' },
+    ],
+    relatedAgentIds: ['lindy'], relatedConceptIds: ['tool-calling', 'agentic-ai'],
+    tags: ['actions', 'safety'],
+  },
+  {
+    id: 'agent-results', title: 'Results & Verification', order: 8,
+    summary: 'How you know the agent actually finished the job.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'Agents fail silently: a run "completes" with the wrong output. Verification is the discipline of checking results against the goal before trusting them.' },
+      { kind: 'heading', text: 'The verification ladder' },
+      { kind: 'bullets', items: [
+        'Objective checks: tests pass, schema validates, URL resolves.',
+        'Rubric checks: an evaluator (model or human) scores against criteria.',
+        'Human checkpoints: a person reviews the final artifact.',
+      ] },
+      { kind: 'paragraph', text: 'Cheap objective checks should gate every run; humans should see only what survives them. That layering is what makes agent workflows production-grade.' },
+    ],
+    relatedAgentIds: ['devin'], relatedConceptIds: ['ai-evaluation', 'model-evaluation'],
+    tags: ['verification', 'evaluation'],
+  },
+  {
+    id: 'agentic-workflows', title: 'Agentic Workflows', order: 9,
+    summary: 'Pipelines where some steps think: the pattern behind the recipes in this app.',
+    readMinutes: 7,
+    content: [
+      { kind: 'paragraph', text: 'An agentic workflow is a normal pipeline — input, steps, output — where one or more steps are agents instead of fixed logic. The YouTube pipeline in this app is exactly that: research, script and SEO steps are model-driven; scheduling stays deterministic.' },
+      { kind: 'bullets', items: [
+        'Deterministic steps: triggers, formatting, scheduling — automate fully.',
+        'Agentic steps: judgment, drafting, classification — model-driven.',
+        'Checkpoints: humans approve at the boundaries that matter.',
+      ] },
+      { kind: 'callout', tone: 'success', text: 'Design rule: automate the boring 80% with rules, delegate the judgment 20% to models, and keep one human checkpoint at the point of no return.' },
+    ],
+    relatedAgentIds: ['manus'], relatedConceptIds: ['agentic-ai', 'ai-agents'],
+    tags: ['workflows', 'agents'],
+  },
+  {
+    id: 'mcp-lesson', title: 'MCP (Model Context Protocol)', order: 10,
+    summary: 'The USB-C port for AI context — one plug for every tool.',
+    readMinutes: 6,
+    content: [
+      { kind: 'paragraph', text: 'MCP standardizes how AI apps connect to external tools and data. Before it, every app built custom integrations for every tool — an N×M problem. With a shared protocol, one server works in every compatible client: N+M.' },
+      { kind: 'bullets', items: [
+        'Host: the AI app (assistant, IDE, agent platform).',
+        'Server: a wrapper exposing a tool, data source or prompt.',
+        'Primitives: tools (callable), resources (readable), prompts (reusable).',
+      ] },
+      { kind: 'callout', tone: 'info', text: 'Build one MCP server for your company\u2019s internal tools and every MCP-compatible assistant can use it — that\u2019s the network effect.' },
+    ],
+    relatedAgentIds: ['claude-code'], relatedConceptIds: ['mcp', 'tool-calling'],
+    tags: ['mcp', 'protocol'],
+  },
+  {
+    id: 'multi-agent-lesson', title: 'Multi-Agent Systems', order: 11,
+    summary: 'Teams of specialized agents for tasks too big for one loop.',
+    readMinutes: 7,
+    content: [
+      { kind: 'paragraph', text: 'One agent doing everything hits limits: context bloat, tool sprawl, compounding error. Multi-agent systems decompose by role — a planner, workers, a critic — and an orchestrator routes information between them.' },
+      { kind: 'heading', text: 'The newsroom pattern' },
+      { kind: 'bullets', items: [
+        'Planner: decomposes the goal and assigns slices.',
+        'Workers: each owns one scoped role with its own tools.',
+        'Critic: reviews outputs and rejects regressions before merge.',
+        'Orchestrator: the only component that sees the whole picture.',
+      ] },
+      { kind: 'callout', tone: 'warning', text: 'Costs and failure modes multiply with every agent. Start with one; add a second only when a specific bottleneck demands it.' },
+    ],
+    relatedAgentIds: ['devin', 'manus'], relatedConceptIds: ['multi-agent-systems', 'agentic-ai'],
+    tags: ['multi-agent', 'orchestration'],
+  },
+];
