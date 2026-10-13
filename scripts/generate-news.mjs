@@ -65,8 +65,21 @@ EXACTLY this shape:
 "significance" is your own 0-100 estimate of how important the story is (flagship model launch or major
 funding/regulation = 85-100; solid product or research news = 55-84; minor update = below 55).
 Write everything in your own words — do not copy sentences from the source.`;
-
 async function callGemini() {
+  const maxTries = 5;
+  for (let i = 1; i <= maxTries; i++) {
+    try {
+      return await callGeminiOnce();
+    } catch (err) {
+      const retryable = /error (500|503|504)/.test(err.message);
+      if (!retryable || i === maxTries) throw err;
+      const waitMs = i * 30000;
+      console.log(`Attempt ${i} failed, retrying in ${waitMs / 1000}s...`);
+      await new Promise((r) => setTimeout(r, waitMs));
+    }
+  }
+}
+async function callGeminiOnce() {
   const body = {
     contents: [{ role: 'user', parts: [{ text: PROMPT }] }],
      // tools: [{ google_search: {} }],
