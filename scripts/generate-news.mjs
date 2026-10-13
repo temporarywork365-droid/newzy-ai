@@ -71,7 +71,7 @@ async function callGemini() {
     try {
       return await callGeminiOnce();
     } catch (err) {
-      const retryable = /error (500|503|504)/.test(err.message);
+     const retryable = /error (500|503|504)|fetch failed|timeout|aborted/i.test(err.message);
       if (!retryable || i === maxTries) throw err;
       const waitMs = i * 30000;
       console.log(`Attempt ${i} failed, retrying in ${waitMs / 1000}s...`);
@@ -88,6 +88,7 @@ async function callGeminiOnce() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(120000),
   });
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
