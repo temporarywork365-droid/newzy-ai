@@ -1,7 +1,12 @@
 {
-  "date": "2026-10-09T00:00:00Z",
-  "headline": "Live news pipeline not run yet",
-  "summary": "This file updates automatically once the GitHub Actions workflow runs for the first time.",
+  "date": "2026-10-13T08:57:50.222Z",
+  "headline": "AI news today",
+  "summary": "No fresh stories were found in the last run.",
   "topStoryId": "",
-  "stats": []
+  "stats": [
+    {
+      "label": "Stories tracked",
+      "value": "0"
+    }
+  ]
 }
