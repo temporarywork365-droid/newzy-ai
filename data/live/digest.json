@@ -1,12 +1,20 @@
 {
-  "date": "2026-10-13T08:57:50.222Z",
-  "headline": "AI news today",
-  "summary": "No fresh stories were found in the last run.",
-  "topStoryId": "",
+  "date": "2026-10-13T09:31:27.764Z",
+  "headline": "Microsoft Unveils Third-Generation Maia AI Chip",
+  "summary": "New custom silicon aims to reduce reliance on Nvidia hardware New large models from Meta promise better benchmark scores and coding capabilities",
+  "topStoryId": "microsoft-unveils-third-generation-maia-ai-chip",
   "stats": [
     {
-      "label": "Stories tracked",
-      "value": "0"
+      "label": "startups",
+      "value": "4"
+    },
+    {
+      "label": "ai-models",
+      "value": "2"
+    },
+    {
+      "label": "regulation",
+      "value": "1"
     }
   ]
 }
