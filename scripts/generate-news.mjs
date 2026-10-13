@@ -21,8 +21,15 @@ if (!GEMINI_API_KEY) {
   process.exit(1);
 }
 
-const MODEL = 'gemini-3.8-flash';
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+// Models are tried in this order. If one is overloaded (503) or unavailable (404/429),
+// the script moves on to the next one.
+const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash-lite'];
+
+// Google Search grounding. Without it Gemini cannot look up live news and may invent stories,
+// so keep this true for real use. Set to false only to test whether grounding quota is the problem.
+const USE_GROUNDING = false;
+
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODELS[0]}:generateContent?key=${GEMINI_API_KEY}`;
 
 const DATA_DIR = path.resolve('data/live');
 const ARTICLES_PATH = path.join(DATA_DIR, 'articles.json');
@@ -65,30 +72,20 @@ EXACTLY this shape:
 "significance" is your own 0-100 estimate of how important the story is (flagship model launch or major
 funding/regulation = 85-100; solid product or research news = 55-84; minor update = below 55).
 Write everything in your own words — do not copy sentences from the source.`;
-async function callGemini() {
-  const maxTries = 5;
-  for (let i = 1; i <= maxTries; i++) {
-    try {
-      return await callGeminiOnce();
-    } catch (err) {
-     const retryable = /error (500|503|504)|fetch failed|timeout|aborted/i.test(err.message);
-      if (!retryable || i === maxTries) throw err;
-      const waitMs = i * 30000;
-      console.log(`Attempt ${i} failed, retrying in ${waitMs / 1000}s...`);
-      await new Promise((r) => setTimeout(r, waitMs));
-    }
-  }
-}
-async function callGeminiOnce() {
+
+async function callGeminiOnce(model) {
+  const url = API_URL.replace(/models\/[^:?/]+/, `models/${model}`);
   const body = {
     contents: [{ role: 'user', parts: [{ text: PROMPT }] }],
-     // tools: [{ google_search: {} }],
   };
-  const res = await fetch(API_URL, {
+  if (USE_GROUNDING) {
+    body.tools = [{ google_search: {} }];
+  }
+  const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(120000),
+    signal: AbortSignal.timeout(120000), // give up on a single request after 2 minutes
   });
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
@@ -100,6 +97,31 @@ async function callGeminiOnce() {
     .join('');
   if (!text.trim()) throw new Error('Gemini returned an empty response.');
   return text;
+}
+
+async function callGemini() {
+  let lastErr;
+  for (const model of MODELS) {
+    for (let i = 1; i <= 2; i++) {
+      try {
+        console.log(`Trying ${model}, attempt ${i}`);
+        return await callGeminiOnce(model);
+      } catch (err) {
+        lastErr = err;
+        // 404 = model not available, 429 = quota: no point retrying, go to the next model.
+        if (/error (404|429)/.test(err.message)) {
+          console.log(`${model} not available, trying next model`);
+          break;
+        }
+        // 500/503/504 and network problems are temporary: retry once, then go to the next model.
+        const retryable = /error (500|503|504)|fetch failed|timeout|aborted/i.test(err.message);
+        if (!retryable) throw err;
+        console.log(`${model} attempt ${i} failed: ${err.message.slice(0, 120)}`);
+        if (i < 2) await new Promise((r) => setTimeout(r, 30000));
+      }
+    }
+  }
+  throw lastErr;
 }
 
 function extractJsonArray(text) {
@@ -184,7 +206,11 @@ async function main() {
   const existing = await readJsonSafe(ARTICLES_PATH, []);
   const existingByKey = new Map(existing.map((a) => [dedupeKey(a.title), a]));
 
-  console.log('Calling Gemini with Google Search grounding...');
+  console.log(
+    USE_GROUNDING
+      ? 'Calling Gemini with Google Search grounding...'
+      : 'Calling Gemini WITHOUT Google Search grounding (test mode)...'
+  );
   const responseText = await callGemini();
   const rawItems = extractJsonArray(responseText);
   console.log(`Gemini returned ${rawItems.length} candidate items.`);
