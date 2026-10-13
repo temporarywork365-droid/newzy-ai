@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 /**
- * Newzy AI — daily news pipeline.
- * Calls the Gemini API (with Google Search grounding) to find real AI news from the
- * last ~36 hours, merges it into data/live/articles.json (rolling window, newest first,
- * deduped by title), recomputes a deterministic trendingScore for every stored article,
- * and writes data/live/digest.json from the result. No AI call is used for the digest —
- * it is built in plain JS from the merged article list, to keep this script cheap and
- * predictable.
+ * Newzy AI — daily news pipeline (FREE version, no Google Search grounding).
  *
- * Requires: GEMINI_API_KEY in the environment (set as a GitHub Actions secret in CI).
+ * How it works:
+ *   1. Downloads real AI news from public RSS feeds (free, no API key needed).
+ *   2. Sends those real headlines + snippets to Gemini and asks it to pick the most important
+ *      ones and rewrite them in Newzy's article format. Gemini does NOT search the web and does
+ *      NOT write links: the link and publisher always come from the RSS feed itself.
+ *   3. Merges the result into data/live/articles.json (rolling window, newest first, deduped),
+ *      recomputes a deterministic trendingScore, and writes data/live/digest.json.
+ *
+ * Requires: GEMINI_API_KEY in the environment (GitHub Actions secret in CI).
  * Run locally with:  GEMINI_API_KEY=xxxx node scripts/generate-news.mjs
  */
 
@@ -24,12 +26,24 @@ if (!GEMINI_API_KEY) {
 // Models are tried in this order. If one is overloaded (503) or unavailable (404/429),
 // the script moves on to the next one.
 const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash-lite'];
-
-// Google Search grounding. Without it Gemini cannot look up live news and may invent stories,
-// so keep this true for real use. Set to false only to test whether grounding quota is the problem.
-const USE_GROUNDING = true;
-
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODELS[0]}:generateContent?key=${GEMINI_API_KEY}`;
+
+// Public RSS/Atom feeds. A feed that is down or has moved is simply skipped (see the log).
+const FEEDS = [
+  { name: 'TechCrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
+  { name: 'The Verge', url: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml' },
+  { name: 'VentureBeat', url: 'https://venturebeat.com/category/ai/feed/' },
+  { name: 'MIT Technology Review', url: 'https://www.technologyreview.com/topic/artificial-intelligence/feed' },
+  { name: 'OpenAI', url: 'https://openai.com/news/rss.xml' },
+  { name: 'Google AI', url: 'https://blog.google/technology/ai/rss/' },
+  { name: 'Hugging Face', url: 'https://huggingface.co/blog/feed.xml' },
+  { name: 'Analytics India Magazine', url: 'https://analyticsindiamag.com/feed/' },
+  { name: 'Ars Technica', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
+];
+
+const FRESH_HOURS = 48; // only consider feed items from the last 48 hours
+const MAX_PER_FEED = 8;
+const MAX_CANDIDATES = 40; // max items sent to Gemini per run
 
 const DATA_DIR = path.resolve('data/live');
 const ARTICLES_PATH = path.join(DATA_DIR, 'articles.json');
@@ -43,44 +57,166 @@ const CATEGORIES = [
   'ai-coding', 'ai-video', 'ai-image', 'ai-audio', 'automation', 'regulation', 'industry', 'india-ai',
 ];
 
-const today = new Date();
-const todayLabel = today.toISOString().slice(0, 10);
+const todayLabel = new Date().toISOString().slice(0, 10);
 
-const PROMPT = `You are a fact-checking AI news editor. Today's date is ${todayLabel}.
+/* ----------------------------- RSS / Atom reading ----------------------------- */
 
-Use live web search to find 6 to 10 REAL, SIGNIFICANT AI news items from the LAST 36 HOURS. Only include
-events you can verify through a search result you actually found — never invent facts, numbers, or dates.
-Prefer official sources (company blogs, regulator sites) and major outlets (Reuters, TechCrunch, Bloomberg,
-The Verge) over aggregators. Include at least one India-related item if a real one exists in that window
-(IndiaAI Mission, Indian AI startups, Sarvam, Indian regulation). Skip anything you cannot verify.
+function decodeEntities(s) {
+  return s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&');
+}
+
+/** Unwrap CDATA, decode entities, strip HTML tags, collapse whitespace. */
+function cleanText(s) {
+  if (!s) return '';
+  let t = s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+  t = decodeEntities(t);
+  t = t.replace(/<[^>]*>/g, ' ');
+  return t.replace(/\s+/g, ' ').trim();
+}
+
+function getTag(block, name) {
+  const re = new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`, 'i');
+  const m = block.match(re);
+  return m ? m[1] : '';
+}
+
+function getLink(block) {
+  // RSS: <link>https://...</link>
+  const rss = cleanText(getTag(block, 'link'));
+  if (/^https?:\/\//i.test(rss)) return rss;
+  // Atom: <link rel="alternate" href="https://..." />
+  const links = block.match(/<link\b[^>]*>/gi) ?? [];
+  for (const l of links) {
+    const href = l.match(/href=["']([^"']+)["']/i);
+    const rel = l.match(/rel=["']([^"']+)["']/i);
+    if (href && (!rel || rel[1] === 'alternate')) return decodeEntities(href[1]);
+  }
+  return '';
+}
+
+function parseFeed(xml, sourceName) {
+  const blocks =
+    xml.match(/<item[\s>][\s\S]*?<\/item>/gi) ??
+    xml.match(/<entry[\s>][\s\S]*?<\/entry>/gi) ??
+    [];
+  const items = [];
+  for (const b of blocks) {
+    const title = cleanText(getTag(b, 'title'));
+    const link = getLink(b);
+    const dateRaw = cleanText(
+      getTag(b, 'pubDate') || getTag(b, 'published') || getTag(b, 'updated') || getTag(b, 'dc:date')
+    );
+    const date = new Date(dateRaw);
+    if (!title || !link || Number.isNaN(date.getTime())) continue; // cannot verify -> skip
+    const snippet = cleanText(
+      getTag(b, 'description') || getTag(b, 'summary') || getTag(b, 'content')
+    ).slice(0, 450);
+    items.push({ source: sourceName, title, link, snippet, publishedAt: date.toISOString() });
+  }
+  return items;
+}
+
+async function fetchFeed(feed) {
+  const res = await fetch(feed.url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (compatible; NewzyBot/1.0; +https://github.com)',
+      Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
+    },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return parseFeed(await res.text(), feed.name);
+}
+
+async function collectFeedItems(knownUrls) {
+  const cutoff = Date.now() - FRESH_HOURS * 3_600_000;
+  const all = [];
+  let okFeeds = 0;
+  for (const feed of FEEDS) {
+    try {
+      const items = await fetchFeed(feed);
+      okFeeds += 1;
+      const fresh = items
+        .filter((i) => new Date(i.publishedAt).getTime() >= cutoff)
+        .filter((i) => !knownUrls.has(i.link))
+        .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+        .slice(0, MAX_PER_FEED);
+      console.log(`Feed OK: ${feed.name} (${items.length} items, ${fresh.length} new & fresh)`);
+      all.push(...fresh);
+    } catch (err) {
+      console.log(`Feed FAILED: ${feed.name} (${String(err.message).slice(0, 80)})`);
+    }
+  }
+  // Dedupe same story across feeds (by normalised title), newest first, then cap.
+  const seen = new Set();
+  const unique = [];
+  for (const item of all.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))) {
+    const key = slugify(item.title);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(item);
+  }
+  return { items: unique.slice(0, MAX_CANDIDATES), okFeeds };
+}
+
+/* --------------------------------- Gemini call --------------------------------- */
+
+function buildPrompt(candidates) {
+  const list = candidates
+    .map(
+      (c, i) =>
+        `${i + 1}. [${c.source} | ${c.publishedAt.slice(0, 16).replace('T', ' ')} UTC] ${c.title}\n   ${c.snippet || '(no snippet)'}`
+    )
+    .join('\n');
+
+  return `You are a careful AI news editor. Today's date is ${todayLabel}.
+
+Below is a numbered list of REAL news items (headline + short snippet) collected from RSS feeds in the last
+${FRESH_HOURS} hours. Pick the 6 to 10 most significant items that are genuinely about AI (models, tools, research,
+companies, startups, agents, robotics, regulation, AI in India). Ignore items that are not about AI.
+If fewer than 6 are AI-related, return only those.
+
+STRICT RULES:
+- Use ONLY facts that appear in the headline or snippet of the item. Do NOT add numbers, names, dates or quotes
+  that are not in the text. If the snippet is thin, write shorter text instead of guessing.
+- Write everything in your own words. Do not copy sentences from the snippet.
+- Do NOT write any URL. Refer to the item only by its number in "sourceIndex".
+- If several items cover the SAME story, pick only the best one of them.
 
 Return ONLY a JSON array (no markdown fences, no commentary, no trailing commas) where each item has
 EXACTLY this shape:
 {
-  "title": "headline in your own words, not copied from the source",
+  "sourceIndex": 3,
+  "title": "headline in your own words",
   "dek": "one-line subtitle",
   "summary": "2 sentences",
-  "whatHappened": "3-4 sentences, facts only",
-  "importantDetails": ["3-5 short factual bullets with real numbers or dates"],
-  "whyItMatters": "2-3 sentences of analysis",
+  "whatHappened": "2-4 sentences, facts from the snippet only",
+  "importantDetails": ["2-4 short factual bullets taken from the text"],
+  "whyItMatters": "2-3 sentences of analysis (no new facts)",
   "category": "one of: ${CATEGORIES.join(', ')}",
-  "source": "publisher name",
-  "sourceUrl": "the real URL of the article you found",
   "tags": ["3-5 short tags"],
   "significance": 72
 }
-"significance" is your own 0-100 estimate of how important the story is (flagship model launch or major
-funding/regulation = 85-100; solid product or research news = 55-84; minor update = below 55).
-Write everything in your own words — do not copy sentences from the source.`;
+"significance" is your own 0-100 estimate of importance (flagship model launch or major funding/regulation =
+85-100; solid product or research news = 55-84; minor update = below 55). Use each sourceIndex at most once.
 
-async function callGeminiOnce(model) {
+NEWS ITEMS:
+${list}`;
+}
+
+async function callGeminiOnce(model, prompt) {
   const url = API_URL.replace(/models\/[^:?/]+/, `models/${model}`);
   const body = {
-    contents: [{ role: 'user', parts: [{ text: PROMPT }] }],
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
   };
-  if (USE_GROUNDING) {
-    body.tools = [{ google_search: {} }];
-  }
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -99,13 +235,13 @@ async function callGeminiOnce(model) {
   return text;
 }
 
-async function callGemini() {
+async function callGemini(prompt) {
   let lastErr;
   for (const model of MODELS) {
     for (let i = 1; i <= 2; i++) {
       try {
         console.log(`Trying ${model}, attempt ${i}`);
-        return await callGeminiOnce(model);
+        return await callGeminiOnce(model, prompt);
       } catch (err) {
         lastErr = err;
         // 404 = model not available, 429 = quota: no point retrying, go to the next model.
@@ -132,6 +268,8 @@ function extractJsonArray(text) {
   }
   return JSON.parse(text.slice(start, end + 1));
 }
+
+/* --------------------------------- Helpers --------------------------------- */
 
 function slugify(title) {
   return title
@@ -200,30 +338,50 @@ function dedupeKey(title) {
   return slugify(title);
 }
 
+/* ----------------------------------- Main ----------------------------------- */
+
 async function main() {
   await mkdir(DATA_DIR, { recursive: true });
 
   const existing = await readJsonSafe(ARTICLES_PATH, []);
   const existingByKey = new Map(existing.map((a) => [dedupeKey(a.title), a]));
+  const knownUrls = new Set(existing.map((a) => a.sourceUrl).filter(Boolean));
 
-  console.log(
-    USE_GROUNDING
-      ? 'Calling Gemini with Google Search grounding...'
-      : 'Calling Gemini WITHOUT Google Search grounding (test mode)...'
-  );
-  const responseText = await callGemini();
-  const rawItems = extractJsonArray(responseText);
-  console.log(`Gemini returned ${rawItems.length} candidate items.`);
+  console.log('Reading RSS feeds...');
+  const { items: candidates, okFeeds } = await collectFeedItems(knownUrls);
+  if (okFeeds === 0) {
+    throw new Error('All RSS feeds failed. Check the feed list or your network.');
+  }
+  console.log(`Collected ${candidates.length} new candidate item(s) from ${okFeeds} feed(s).`);
 
-  const nowIso = new Date().toISOString();
   let added = 0;
-  for (const raw of rawItems) {
-    if (!raw || typeof raw.title !== 'string' || raw.title.trim().length < 5) continue;
-    const key = dedupeKey(raw.title);
-    if (existingByKey.has(key)) continue; // already have this story
-    const record = buildArticleRecord(raw, nowIso);
-    existingByKey.set(key, record);
-    added += 1;
+  if (candidates.length > 0) {
+    const responseText = await callGemini(buildPrompt(candidates));
+    const rawItems = extractJsonArray(responseText);
+    console.log(`Gemini returned ${rawItems.length} article(s).`);
+
+    const usedIndexes = new Set();
+    for (const raw of rawItems) {
+      if (!raw || typeof raw.title !== 'string' || raw.title.trim().length < 5) continue;
+      const idx = Number(raw.sourceIndex);
+      const item = candidates[idx - 1];
+      if (!Number.isInteger(idx) || !item || usedIndexes.has(idx)) continue; // must map to a real feed item
+      usedIndexes.add(idx);
+
+      const key = dedupeKey(raw.title);
+      if (existingByKey.has(key) || knownUrls.has(item.link)) continue;
+
+      // Link, publisher and publish date always come from the feed, never from the model.
+      const record = buildArticleRecord(
+        { ...raw, source: item.source, sourceUrl: item.link },
+        item.publishedAt
+      );
+      existingByKey.set(key, record);
+      knownUrls.add(item.link);
+      added += 1;
+    }
+  } else {
+    console.log('No new items since the last run. Skipping the Gemini call.');
   }
   console.log(`Added ${added} new article(s).`);
 
@@ -259,7 +417,7 @@ async function main() {
     .slice(0, 3);
 
   const digest = {
-    date: nowIso,
+    date: new Date().toISOString(),
     headline: topStory ? topStory.title.split(' ').slice(0, 6).join(' ') : 'AI news today',
     summary: topStory
       ? `${topStory.dek} ${merged[1] ? merged[1].dek : ''}`.trim()
