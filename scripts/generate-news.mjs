@@ -27,7 +27,7 @@ const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash-lite']
 
 // Google Search grounding. Without it Gemini cannot look up live news and may invent stories,
 // so keep this true for real use. Set to false only to test whether grounding quota is the problem.
-const USE_GROUNDING = false;
+const USE_GROUNDING = true;
 
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODELS[0]}:generateContent?key=${GEMINI_API_KEY}`;
 
