@@ -69,7 +69,7 @@ Write everything in your own words — do not copy sentences from the source.`;
 async function callGemini() {
   const body = {
     contents: [{ role: 'user', parts: [{ text: PROMPT }] }],
-    tools: [{ google_search: {} }],
+     // tools: [{ google_search: {} }],
   };
   const res = await fetch(API_URL, {
     method: 'POST',
