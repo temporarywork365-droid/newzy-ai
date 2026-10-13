@@ -25,7 +25,7 @@ if (!GEMINI_API_KEY) {
 
 // Models are tried in this order. If one is overloaded (503) or unavailable (404/429),
 // the script moves on to the next one.
-const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash-lite'];
+const MODELS = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-3.7-flash'];
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODELS[0]}:generateContent?key=${GEMINI_API_KEY}`;
 
 // Public RSS/Atom feeds. A feed that is down or has moved is simply skipped (see the log).
@@ -216,6 +216,8 @@ async function callGeminiOnce(model, prompt) {
   const url = API_URL.replace(/models\/[^:?/]+/, `models/${model}`);
   const body = {
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    // Ask Gemini for strict JSON output so the reply is always parseable.
+    generationConfig: { responseMimeType: 'application/json' },
   };
   const res = await fetch(url, {
     method: 'POST',
@@ -232,7 +234,11 @@ async function callGeminiOnce(model, prompt) {
     .map((p) => p.text ?? '')
     .join('');
   if (!text.trim()) throw new Error('Gemini returned an empty response.');
-  return text;
+  try {
+    return extractJsonArray(text);
+  } catch (err) {
+    throw new Error(`Gemini returned invalid JSON: ${String(err.message).slice(0, 100)}`);
+  }
 }
 
 async function callGemini(prompt) {
@@ -250,10 +256,12 @@ async function callGemini(prompt) {
           break;
         }
         // 500/503/504 and network problems are temporary: retry once, then go to the next model.
-        const retryable = /error (500|503|504)|fetch failed|timeout|aborted/i.test(err.message);
+        const retryable = /error (500|503|504)|fetch failed|timeout|aborted|invalid JSON|empty response/i.test(err.message);
         if (!retryable) throw err;
         console.log(`${model} attempt ${i} failed: ${err.message.slice(0, 120)}`);
-        if (i < 2) await new Promise((r) => setTimeout(r, 30000));
+        // Overload errors deserve a pause; a broken reply can be retried straight away.
+        const waitMs = /invalid JSON|empty response/i.test(err.message) ? 0 : 30000;
+        if (i < 2 && waitMs > 0) await new Promise((r) => setTimeout(r, waitMs));
       }
     }
   }
@@ -356,8 +364,7 @@ async function main() {
 
   let added = 0;
   if (candidates.length > 0) {
-    const responseText = await callGemini(buildPrompt(candidates));
-    const rawItems = extractJsonArray(responseText);
+    const rawItems = await callGemini(buildPrompt(candidates));
     console.log(`Gemini returned ${rawItems.length} article(s).`);
 
     const usedIndexes = new Set();
