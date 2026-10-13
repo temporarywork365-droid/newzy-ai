@@ -21,7 +21,7 @@ if (!GEMINI_API_KEY) {
   process.exit(1);
 }
 
-const MODEL = 'gemini-2.5-flash';
+const MODEL = 'gemini-3.8-flash';
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`;
 
 const DATA_DIR = path.resolve('data/live');
