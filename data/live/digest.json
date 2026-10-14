@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-13T09:31:27.764Z",
-  "headline": "Microsoft Unveils Third-Generation Maia AI Chip",
-  "summary": "New custom silicon aims to reduce reliance on Nvidia hardware New large models from Meta promise better benchmark scores and coding capabilities",
-  "topStoryId": "microsoft-unveils-third-generation-maia-ai-chip",
+  "date": "2026-10-14T06:50:18.729Z",
+  "headline": "Google launches Gemini 4 Argon",
+  "summary": "Google enters the frontier AI race with its newest model Shoppers can now configure AI agents to purchase products",
+  "topStoryId": "google-launches-gemini-4-argon",
   "stats": [
     {
       "label": "startups",
@@ -10,11 +10,11 @@
     },
     {
       "label": "ai-models",
-      "value": "2"
+      "value": "3"
     },
     {
-      "label": "regulation",
-      "value": "1"
+      "label": "automation",
+      "value": "2"
     }
   ]
 }
