@@ -1,9 +1,9 @@
 import { ApiError } from '../errors';
 import type { QueryParams } from '../types';
-import { LEARNING_TRACK_LABELS, MODALITY_LABELS, POPULAR_SEARCHES } from '@/constants/taxonomy';
+import { LEARNING_TRACK_LABELS, MODALITY_LABELS, NEWS_CATEGORY_LABELS, POPULAR_SEARCHES } from '@/constants/taxonomy';
 import { delay } from '@/utils/async';
 import type {
-  EntityType, KnowledgeCard, KnowledgeEntry, Modality, Paginated,
+  Article, DailyDigest, EntityType, KnowledgeCard, KnowledgeEntry, Modality, Paginated,
   SavedItem, SavedItemResolved, SearchSuggestion, SearchResult,
 } from '@/types';
 import type { PromptLabCategory } from '@/types/promptLab';
@@ -19,13 +19,16 @@ import { research } from './data/research';
 import { digest, topics } from './data/topics';
 import { tools } from './data/tools';
 import { workflows } from './data/workflows';
+import { getLiveArticles, getLiveDigest } from './liveData';
 import { analyzePrompt } from './promptLabEngine';
 
 /* ── news engine rules ───────────────────────
    The app is a consumer: it never scrapes or processes. The engine serves
    ONLY items that completed the full pipeline (status === 'published'). */
 
-const publishedArticles = articles.filter((article) => article.status === 'published');
+let allArticles: Article[] = articles;
+let publishedArticles: Article[] = articles.filter((article) => article.status === 'published');
+let activeDigest: DailyDigest = digest;
 
 /* ── auth + preferences (demo state, backend stand-in) ── */
 
@@ -156,16 +159,17 @@ interface IndexedEntry extends SearchResult { haystack: string; }
 const isTutorial = (article: { tags: string[] }) =>
   article.tags.some((tag) => tag.toLowerCase() === 'tutorial');
 
-const searchIndex: IndexedEntry[] = [
-  ...publishedArticles.map((article) => ({
-    type: isTutorial(article) ? ('tutorial' as const) : ('article' as const),
-    id: article.id, title: article.title,
-    subtitle: `${article.source} · ${article.readMinutes} min read`,
-    route: `/article/${article.id}`, tags: article.tags,
-    haystack: `${article.title} ${article.dek} ${article.summary} ${article.tags.join(' ')} ${article.category} ${
-      isTutorial(article) ? 'tutorial how to guide' : 'news'
-    }`.toLowerCase(),
-  })),
+const toArticleEntry = (article: Article): IndexedEntry => ({
+  type: isTutorial(article) ? ('tutorial' as const) : ('article' as const),
+  id: article.id, title: article.title,
+  subtitle: `${article.source} · ${article.readMinutes} min read`,
+  route: `/article/${article.id}`, tags: article.tags,
+  haystack: `${article.title} ${article.dek} ${article.summary} ${article.tags.join(' ')} ${article.category} ${
+    isTutorial(article) ? 'tutorial how to guide' : 'news'
+  }`.toLowerCase(),
+});
+
+const nonArticleEntries: IndexedEntry[] = [
   ...models.map((model) => ({ type: 'model' as const, id: model.id, title: model.name, subtitle: `${model.developerName} · ${model.modalities.map((x) => MODALITY_LABELS[x]).join(' / ')}`, route: `/model/${model.id}`, tags: model.tags, haystack: `${model.name} ${model.developerName} ${model.family} ${model.summary} ${model.tags.join(' ')} ${model.category}`.toLowerCase() })),
   ...tools.map((tool) => ({ type: 'tool' as const, id: tool.id, title: tool.name, subtitle: tool.tagline, route: `/tool/${tool.id}`, tags: tool.tags, haystack: `${tool.name} ${tool.tagline} ${tool.summary} ${tool.developer} ${tool.tags.join(' ')} ${tool.category}`.toLowerCase() })),
   ...concepts.map((concept) => ({ type: 'concept' as const, id: concept.id, title: concept.title, subtitle: `${LEARNING_TRACK_LABELS[concept.track]} · ${concept.level}`, route: `/concept/${concept.id}`, tags: concept.tags, haystack: `${concept.title} ${concept.definition} ${concept.tags.join(' ')}`.toLowerCase() })),
@@ -185,6 +189,64 @@ const searchIndex: IndexedEntry[] = [
   ...topics.map((topic) => ({ type: 'topic' as const, id: topic.id, title: topic.name, subtitle: topic.tagline, route: `/topic/${topic.id}`, tags: topic.tags, haystack: `${topic.name} ${topic.tagline} ${topic.description} ${topic.tags.join(' ')}`.toLowerCase() })),
 ];
 
+let searchIndex: IndexedEntry[] = [...publishedArticles.map(toArticleEntry), ...nonArticleEntries];
+
+/* ── live data (GitHub Actions pipeline) ──────
+   scripts/generate-news.mjs commits data/live/*.json; liveData.ts downloads it. We fetch once per
+   app session. If the download fails or has nothing usable, the built-in sample data stays, so the
+   app never breaks. When live data arrives it replaces the sample NEWS; the built-in tutorials
+   (learning content) are kept. */
+
+const isUsableLiveArticle = (a: Partial<Article>): boolean =>
+  !!a && typeof a.id === 'string' && typeof a.title === 'string' && typeof a.publishedAt === 'string'
+  && typeof a.category === 'string' && Array.isArray(a.tags) && a.status === 'published'
+  && !Number.isNaN(new Date(a.publishedAt).getTime());
+
+const normalizeLiveArticle = (a: Article): Article => ({
+  ...a,
+  imageUrl: a.imageUrl ?? undefined, // pipeline writes null; the UI expects undefined
+  readMinutes: a.readMinutes ?? 3,
+  importantDetails: Array.isArray(a.importantDetails) ? a.importantDetails : [],
+  relatedIds: a.relatedIds ?? [],
+  relatedTopicIds: a.relatedTopicIds ?? [],
+  relatedModelIds: a.relatedModelIds ?? [],
+  relatedToolIds: a.relatedToolIds ?? [],
+});
+
+let liveReady: Promise<void> | null = null;
+
+function ensureLiveData(): Promise<void> {
+  if (!liveReady) {
+    liveReady = (async () => {
+      try {
+        const [liveArticles, liveDigest] = await Promise.all([getLiveArticles(), getLiveDigest()]);
+        const usable = Array.isArray(liveArticles)
+          ? liveArticles.filter(isUsableLiveArticle).map(normalizeLiveArticle)
+          : [];
+        if (usable.length === 0) return; // keep sample data
+
+        allArticles = [...usable, ...articles.filter(isTutorial)];
+        publishedArticles = allArticles.filter((article) => article.status === 'published');
+        searchIndex = [...publishedArticles.map(toArticleEntry), ...nonArticleEntries];
+
+        if (liveDigest && typeof liveDigest.headline === 'string' && Array.isArray(liveDigest.stats)) {
+          activeDigest = {
+            ...liveDigest,
+            // The pipeline writes raw category ids ("ai-models"); show the friendly names.
+            stats: liveDigest.stats.map((stat) => ({
+              ...stat,
+              label: NEWS_CATEGORY_LABELS[stat.label as keyof typeof NEWS_CATEGORY_LABELS] ?? stat.label,
+            })),
+          };
+        }
+      } catch {
+        /* never let live data break the app */
+      }
+    })();
+  }
+  return liveReady;
+}
+
 /* ── transport ─────────────────────────────── */
 
 export async function mockRequest<T>(
@@ -193,6 +255,7 @@ export async function mockRequest<T>(
   body?: unknown,
   params: QueryParams = {},
 ): Promise<T> {
+  await ensureLiveData();
   await delay(220 + Math.random() * 380);
   return method === 'GET' ? await handleGet<T>(path, params) : handlePost<T>(path, body);
 }
@@ -234,7 +297,7 @@ function handleGet<T>(path: string, params: QueryParams): T {
   }
 
   /* Digest */
-  if (path === '/digest/today') return digest as T;
+  if (path === '/digest/today') return activeDigest as T;
 
   /* News (published-only) */
   if (path === '/news') {
@@ -250,7 +313,7 @@ function handleGet<T>(path: string, params: QueryParams): T {
   if (path === '/news/breaking') return publishedArticles.filter((article) => article.breaking).sort(byNewest) as T;
   if (path === '/news/trending') return [...publishedArticles].sort(byTrending).slice(0, 5) as T;
   if (path.startsWith('/news/')) {
-    const article = findBy(articles, path.slice('/news/'.length), 'Article');
+    const article = findBy(allArticles, path.slice('/news/'.length), 'Article');
     if (article.status !== 'published') throw new ApiError(404, 'Article is not published', 'NOT_PUBLISHED');
     return {
       ...article,

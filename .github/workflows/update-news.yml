@@ -2,16 +2,24 @@ name: Update AI news (Gemini pipeline)
 
 on:
   schedule:
-    # 02:00 UTC = 07:30 IST — runs once a day.
-    - cron: '0 2 * * *'
+    # Twice a day, so one failed run (e.g. Gemini overloaded) is covered by the next one.
+    # Odd minutes on purpose: GitHub delays or drops jobs scheduled exactly at the top of the hour.
+    - cron: '17 2 * * *'   # 02:17 UTC = 07:47 IST
+    - cron: '23 14 * * *'  # 14:23 UTC = 19:53 IST
   workflow_dispatch: {} # lets you trigger it manually from the Actions tab to test
 
 permissions:
   contents: write
 
+# Never run two updates at the same time (they would both try to commit).
+concurrency:
+  group: update-news
+  cancel-in-progress: false
+
 jobs:
   update-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -19,12 +27,24 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
-      - name: Run the news pipeline
+      - name: Run the news pipeline (retries if Gemini is overloaded)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate-news.mjs
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/generate-news.mjs; then
+              exit 0
+            fi
+            echo "Pipeline attempt $attempt failed."
+            if [ "$attempt" -lt 3 ]; then
+              echo "Waiting 8 minutes before trying again..."
+              sleep 480
+            fi
+          done
+          echo "All 3 attempts failed."
+          exit 1
 
       - name: Commit updated data (if anything changed)
         run: |
@@ -35,5 +55,7 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: daily AI news update [skip ci]"
+            # If you pushed code while this job was running, pick up your commits first.
+            git pull --rebase origin main
             git push
           fi

@@ -10,7 +10,7 @@ import type { Article, DailyDigest } from '@/types';
  * place), every function here returns null and the app falls back to the static mock data
  * in ./data — nothing breaks.
  */
-const GITHUB_USER = '<GITHUB_USER>';
+const GITHUB_USER = 'temporarywork365-droid';
 const GITHUB_REPO = 'newzy-ai';
 const GITHUB_BRANCH = 'main';
 
