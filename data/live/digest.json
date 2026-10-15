@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-14T06:50:18.729Z",
+  "date": "2026-10-15T06:03:43.593Z",
   "headline": "Google launches Gemini 4 Argon",
-  "summary": "Google enters the frontier AI race with its newest model Shoppers can now configure AI agents to purchase products",
+  "summary": "Google enters the frontier AI race with its newest model States allege OpenAI prioritized profits over children's safety and misled customers.",
   "topStoryId": "google-launches-gemini-4-argon",
   "stats": [
     {
-      "label": "startups",
-      "value": "4"
-    },
-    {
-      "label": "ai-models",
+      "label": "automation",
       "value": "3"
     },
     {
-      "label": "automation",
+      "label": "companies",
+      "value": "2"
+    },
+    {
+      "label": "research",
       "value": "2"
     }
   ]
