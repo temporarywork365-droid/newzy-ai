@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '@/components/ui/Screen';
@@ -7,6 +7,7 @@ import { AppText } from '@/components/ui/AppText';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { FilterRow, type FilterOption } from '@/components/ui/FilterRow';
 import { SearchEntry } from '@/components/ui/SearchEntry';
@@ -17,8 +18,9 @@ import { ArticleCard } from '@/components/news/ArticleCard';
 import { ArticleListItem } from '@/components/news/ArticleListItem';
 import { ModelMiniCard } from '@/components/models/ModelMiniCard';
 import { ToolMiniCard } from '@/components/tools/ToolMiniCard';
+import { refreshLiveData } from '@/api/mock/mockApi';
 import { INTEREST_LABELS } from '@/constants/interests';
-import { EXPLORE_SECTIONS, LEARNING_TRACK_LABELS } from '@/constants/taxonomy';
+import { EXPLORE_SECTIONS, LEARNING_TRACK_LABELS, NEWS_CATEGORY_LABELS } from '@/constants/taxonomy';
 import { personalizeArticles } from '@/features/personalization/recommendationEngine';
 import {
   useBreakingNews, useDailyDigest, useFeaturedConcepts, useFeaturedNews,
@@ -26,6 +28,8 @@ import {
   useTrendingTopics, useWorkflows,
 } from '@/hooks/queries';
 import { useInterestsStore } from '@/store/interestsStore';
+import { usePreferencesStore } from '@/store/preferencesStore';
+import { localizeArticle } from '@/utils/localize';
 import { formatRelativeTime, formatToday } from '@/utils/format';
 import { routes } from '@/utils/navigation';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -92,6 +96,29 @@ function TodayCard({ digest }: { digest: DailyDigest }) {
   );
 }
 
+function BriefCard({ article, index, total, width }: { article: Article; index: number; total: number; width: number }) {
+  const { spacing } = useTheme();
+  const language = usePreferencesStore((state) => state.language);
+  const text = localizeArticle(article, language);
+  return (
+    <Card onPress={() => router.push(routes.article(article.id))} style={{ width, minHeight: 230 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+        <Badge label={`${index + 1} / ${total}`} tone="accent" />
+        <Badge label={NEWS_CATEGORY_LABELS[article.category]} />
+        <AppText variant="caption" color="tertiary" style={{ flex: 1, textAlign: 'right' }}>
+          {formatRelativeTime(article.publishedAt)}
+        </AppText>
+      </View>
+      <AppText variant="title" hi={text.isHindi} numberOfLines={3} style={{ marginTop: spacing.md }}>{text.title}</AppText>
+      <AppText variant="small" color="secondary" hi={text.isHindi} numberOfLines={5} style={{ marginTop: spacing.sm }}>
+        {text.summary}
+      </AppText>
+      <AppText variant="caption" color="tertiary" style={{ marginTop: spacing.md }}>{article.source} · AI summary</AppText>
+      <AppText variant="caption" color="accent" style={{ marginTop: spacing.xs }}>Read the full story →</AppText>
+    </Card>
+  );
+}
+
 function PersonalizeBanner({ onPress }: { onPress: () => void }) {
   const { colors, spacing, radius } = useTheme();
   return (
@@ -122,6 +149,8 @@ function PersonalizeBanner({ onPress }: { onPress: () => void }) {
 export function HomeScreen() {
   const { colors, spacing } = useTheme();
   const [category, setCategory] = useState<'all' | NewsCategory>('all');
+  const [liveRefreshing, setLiveRefreshing] = useState(false);
+  const { width: windowWidth } = useWindowDimensions();
 
   const digest = useDailyDigest();
   const breaking = useBreakingNews();
@@ -143,12 +172,28 @@ export function HomeScreen() {
   );
   const hasInterests = interestsHydrated && interests.length > 0;
 
+  // "Today's top 5": the most important stories of the last 48 hours (falls back to the newest ones).
+  const briefArticles = useMemo(() => {
+    const pool = (forYouPool.data ?? []).filter((article) => !article.tags.includes('tutorial'));
+    const cutoff = Date.now() - 48 * 3_600_000;
+    const fresh = pool.filter((article) => new Date(article.publishedAt).getTime() >= cutoff);
+    const source = fresh.length >= 3 ? fresh : pool;
+    return [...source].sort((a, b) => (b.trendingScore ?? 0) - (a.trendingScore ?? 0)).slice(0, 5);
+  }, [forYouPool.data]);
+  const briefWidth = windowWidth - spacing.lg * 2 - 24; // leave a peek of the next card
+
   const refreshing =
-    digest.isRefetching || breaking.isRefetching || featured.isRefetching ||
+    liveRefreshing || digest.isRefetching || breaking.isRefetching || featured.isRefetching ||
     latest.isRefetching || trendingModels.isRefetching || trendingTools.isRefetching ||
     trendingTopics.isRefetching || learn.isRefetching || workflows.isRefetching;
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
+    setLiveRefreshing(true);
+    try {
+      await refreshLiveData(); // download the newest news from GitHub first
+    } finally {
+      setLiveRefreshing(false);
+    }
     digest.refetch(); breaking.refetch(); featured.refetch(); latest.refetch();
     trendingModels.refetch(); trendingTools.refetch(); trendingTopics.refetch();
     learn.refetch(); workflows.refetch(); forYouPool.refetch();
@@ -201,6 +246,28 @@ export function HomeScreen() {
 
       {/* Today's AI */}
       {digest.data && <TodayCard digest={digest.data} />}
+
+      {/* Today's top 5 — swipe through the day's main stories */}
+      {briefArticles.length > 0 && (
+        <View style={{ marginTop: spacing.lg }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <AppText variant="title">Today's top {briefArticles.length}</AppText>
+            <LanguageToggle />
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            decelerationRate="fast"
+            snapToInterval={briefWidth + spacing.md}
+            snapToAlignment="start"
+            contentContainerStyle={{ gap: spacing.md, paddingRight: spacing.lg, paddingTop: spacing.md }}
+          >
+            {briefArticles.map((article, index) => (
+              <BriefCard key={article.id} article={article} index={index} total={briefArticles.length} width={briefWidth} />
+            ))}
+          </ScrollView>
+        </View>
+      )}
 
       {/* For You (personalized) or onboarding banner */}
       {hasInterests ? (

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '@/components/ui/Screen';
 import { AppText } from '@/components/ui/AppText';
 import { Chip } from '@/components/ui/Chip';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import { FilterRow, type FilterOption } from '@/components/ui/FilterRow';
 import { SearchEntry } from '@/components/ui/SearchEntry';
 import { EmptyView, LoadingView, SkeletonRows } from '@/components/ui/StateViews';
@@ -12,6 +13,7 @@ import { OfflineBanner } from '@/components/ui/OfflineBanner';
 import { ScreenHeader } from '@/components/layout/ScreenHeader';
 import { ArticleCard } from '@/components/news/ArticleCard';
 import { ArticleListItem } from '@/components/news/ArticleListItem';
+import { refreshLiveData } from '@/api/mock/mockApi';
 import { useBreakingNews, useNewsFeed, useTrendingNews, useTrendingTopics } from '@/hooks/queries';
 import { routes } from '@/utils/navigation';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -48,6 +50,7 @@ export function NewsScreen() {
   const { colors, spacing } = useTheme();
   const [tab, setTab] = useState<NewsTab>('latest');
   const [category, setCategory] = useState<'all' | NewsCategory>('all');
+  const [liveRefreshing, setLiveRefreshing] = useState(false);
 
   const feed = useNewsFeed(tab === 'latest' && category !== 'all' ? category : undefined);
   const trending = useTrendingNews();
@@ -68,11 +71,18 @@ export function NewsScreen() {
     (tab === 'breaking' && breaking.isLoading);
 
   const isRefreshing =
+    liveRefreshing ||
     (tab === 'latest' && feed.isRefetching) ||
     (tab === 'trending' && trending.isRefetching) ||
     (tab === 'breaking' && breaking.isRefetching);
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
+    setLiveRefreshing(true);
+    try {
+      await refreshLiveData(); // download the newest news from GitHub first
+    } finally {
+      setLiveRefreshing(false);
+    }
     if (tab === 'latest') feed.refetch();
     else if (tab === 'trending') trending.refetch();
     else breaking.refetch();
@@ -114,6 +124,9 @@ export function NewsScreen() {
             <SearchEntry placeholder="Search all AI news…" />
             <View style={{ marginTop: spacing.md }}>
               <OfflineBanner />
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: spacing.xs }}>
+              <LanguageToggle />
             </View>
             <FilterRow options={TAB_FILTERS} value={tab} onChange={setTab} />
             {trendingTopics.data && trendingTopics.data.length > 0 && (

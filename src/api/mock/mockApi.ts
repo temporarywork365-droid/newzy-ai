@@ -19,7 +19,7 @@ import { research } from './data/research';
 import { digest, topics } from './data/topics';
 import { tools } from './data/tools';
 import { workflows } from './data/workflows';
-import { getLiveArticles, getLiveDigest } from './liveData';
+import { clearLiveDataCache, getLiveArticles, getLiveDigest } from './liveData';
 import { analyzePrompt } from './promptLabEngine';
 
 /* ── news engine rules ───────────────────────
@@ -245,6 +245,14 @@ function ensureLiveData(): Promise<void> {
     })();
   }
   return liveReady;
+}
+
+/** Pull-to-refresh calls this: forget the cached download and fetch the newest news from GitHub again.
+    If the phone is offline, the last live data already in memory stays on screen. */
+export async function refreshLiveData(): Promise<void> {
+  clearLiveDataCache();
+  liveReady = null;
+  await ensureLiveData();
 }
 
 /* ── transport ─────────────────────────────── */

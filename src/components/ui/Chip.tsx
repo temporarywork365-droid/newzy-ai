@@ -34,7 +34,14 @@ export function Chip({ label, active = false, tone = 'neutral', icon, onPress, s
       ]}
     >
       {icon ? <Ionicons name={icon} size={small ? 11 : 13} color={textColor} /> : null}
-      <AppText variant="caption" style={{ color: textColor, fontSize: small ? 10 : 11 }}>{label}</AppText>
+      {/* One line, no shrinking: stops labels like "AI Models" from wrapping and getting cut off. */}
+      <AppText
+        variant="caption"
+        numberOfLines={1}
+        style={{ color: textColor, fontSize: small ? 10 : 11, flexShrink: 0 }}
+      >
+        {label.replace(/ /g, '\u00A0')}
+      </AppText>
     </View>
   );
 

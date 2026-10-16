@@ -4,6 +4,8 @@ import { router } from 'expo-router';
 import { AppText } from '@/components/ui/AppText';
 import { SaveButton } from '@/components/ui/SaveButton';
 import { NEWS_CATEGORY_LABELS } from '@/constants/taxonomy';
+import { usePreferencesStore } from '@/store/preferencesStore';
+import { localizeArticle } from '@/utils/localize';
 import { formatRelativeTime } from '@/utils/format';
 import { routes } from '@/utils/navigation';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -16,6 +18,8 @@ interface ArticleListItemProps {
 
 function ArticleListItemBase({ article, showSummary = true }: ArticleListItemProps) {
   const { spacing, radius } = useTheme();
+  const language = usePreferencesStore((state) => state.language);
+  const text = localizeArticle(article, language);
   return (
     <Pressable
       onPress={() => router.push(routes.article(article.id))}
@@ -30,10 +34,10 @@ function ArticleListItemBase({ article, showSummary = true }: ArticleListItemPro
         <AppText variant="caption" color="accent" style={{ textTransform: 'uppercase', letterSpacing: 0.4 }}>
           {NEWS_CATEGORY_LABELS[article.category]}
         </AppText>
-        <AppText variant="heading" style={{ marginTop: 4 }}>{article.title}</AppText>
+        <AppText variant="heading" hi={text.isHindi} style={{ marginTop: 4 }}>{text.title}</AppText>
         {showSummary ? (
-          <AppText variant="small" color="secondary" numberOfLines={1} style={{ marginTop: 2 }}>
-            {article.dek}
+          <AppText variant="small" color="secondary" hi={text.isHindi} numberOfLines={1} style={{ marginTop: 2 }}>
+            {text.dek}
           </AppText>
         ) : null}
         <AppText variant="caption" color="tertiary" style={{ marginTop: spacing.xs }}>

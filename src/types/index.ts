@@ -49,6 +49,15 @@ export interface Article {
   breaking?: boolean;
   trendingScore?: number;
   imageUrl?: string;
+  /** The publisher's own headline (the live pipeline fills this in). */
+  originalTitle?: string;
+  /** Hindi version of the summary fields, written by the pipeline (AI translation). */
+  titleHi?: string;
+  dekHi?: string;
+  summaryHi?: string;
+  whyItMattersHi?: string;
+  /** A ready-to-paste prompt that helps the reader apply the story. */
+  tryThis?: { title: string; prompt: string };
   relatedIds: string[];
   relatedTopicIds: string[];
   relatedModelIds: string[];

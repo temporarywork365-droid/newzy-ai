@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/Badge';
 import { Chip } from '@/components/ui/Chip';
 import { SaveButton } from '@/components/ui/SaveButton';
 import { NEWS_CATEGORY_LABELS } from '@/constants/taxonomy';
+import { usePreferencesStore } from '@/store/preferencesStore';
+import { localizeArticle } from '@/utils/localize';
 import { formatRelativeTime } from '@/utils/format';
 import { routes } from '@/utils/navigation';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -13,6 +15,8 @@ import type { Article } from '@/types';
 
 export function ArticleCard({ article, width }: { article: Article; width?: number }) {
   const { radius, spacing } = useTheme();
+  const language = usePreferencesStore((state) => state.language);
+  const text = localizeArticle(article, language);
   return (
     <Card onPress={() => router.push(routes.article(article.id))} style={{ width: width ?? '100%', padding: 0 }}>
       {article.imageUrl ? (
@@ -30,9 +34,9 @@ export function ArticleCard({ article, width }: { article: Article; width?: numb
             {article.readMinutes} min read
           </AppText>
         </View>
-        <AppText variant="title">{article.title}</AppText>
-        <AppText variant="small" color="secondary" numberOfLines={3} style={{ marginTop: spacing.sm }}>
-          {article.dek}
+        <AppText variant="title" hi={text.isHindi}>{text.title}</AppText>
+        <AppText variant="small" color="secondary" hi={text.isHindi} numberOfLines={3} style={{ marginTop: spacing.sm }}>
+          {text.dek}
         </AppText>
         {article.tags.length > 0 && (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs, marginTop: spacing.sm }}>

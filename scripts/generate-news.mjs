@@ -189,6 +189,11 @@ STRICT RULES:
   that are not in the text. If the snippet is thin, write shorter text instead of guessing.
 - Write everything in your own words. Do not copy sentences from the snippet.
 - Do NOT write any URL. Refer to the item only by its number in "sourceIndex".
+- The Hindi fields must say the same thing as the English fields and add nothing new. Write simple, natural
+  Hindi in Devanagari script; keep AI terms, company names and product names in English letters.
+- "tryThis" is a ready-to-paste prompt (2-4 sentences, in English) that helps a student or professional apply
+  the idea of the story with any AI chatbot. Keep it about the topic in general; do not put new facts about
+  the story inside it.
 - If several items cover the SAME story, pick only the best one of them.
 
 Return ONLY a JSON array (no markdown fences, no commentary, no trailing commas) where each item has
@@ -203,6 +208,11 @@ EXACTLY this shape:
   "whyItMatters": "2-3 sentences of analysis (no new facts)",
   "category": "one of: ${CATEGORIES.join(', ')}",
   "tags": ["3-5 short tags"],
+  "titleHi": "same headline in simple Hindi",
+  "dekHi": "same subtitle in simple Hindi",
+  "summaryHi": "same 2-sentence summary in simple Hindi",
+  "whyItMattersHi": "same analysis in simple Hindi",
+  "tryThis": { "title": "short label, max 6 words", "prompt": "the ready-to-paste prompt" },
   "significance": 72
 }
 "significance" is your own 0-100 estimate of importance (flagship model launch or major funding/regulation =
@@ -311,6 +321,19 @@ function clamp(n, min, max) {
   return Math.min(max, Math.max(min, Number.isFinite(n) ? n : min));
 }
 
+/** Returns a trimmed string, or undefined when empty (undefined fields are left out of the JSON file). */
+function optText(value, max) {
+  const t = typeof value === 'string' ? value.trim() : '';
+  return t ? t.slice(0, max) : undefined;
+}
+
+function parseTryThis(value) {
+  if (!value || typeof value !== 'object') return undefined;
+  const title = optText(value.title, 80);
+  const prompt = optText(value.prompt, 700);
+  return title && prompt ? { title, prompt } : undefined;
+}
+
 function buildArticleRecord(raw, publishedAtIso) {
   const id = slugify(raw.title);
   const significance = clamp(raw.significance, 0, 100);
@@ -319,8 +342,14 @@ function buildArticleRecord(raw, publishedAtIso) {
     status: 'published',
     category: CATEGORIES.includes(raw.category) ? raw.category : 'industry',
     title: String(raw.title ?? '').slice(0, 200),
+    originalTitle: optText(raw.originalTitle, 300), // the publisher's own headline, shown for transparency
     dek: String(raw.dek ?? '').slice(0, 200),
     summary: String(raw.summary ?? ''),
+    titleHi: optText(raw.titleHi, 200),
+    dekHi: optText(raw.dekHi, 200),
+    summaryHi: optText(raw.summaryHi, 600),
+    whyItMattersHi: optText(raw.whyItMattersHi, 700),
+    tryThis: parseTryThis(raw.tryThis),
     whatHappened: String(raw.whatHappened ?? ''),
     importantDetails: Array.isArray(raw.importantDetails) ? raw.importantDetails.slice(0, 6).map(String) : [],
     whyItMatters: String(raw.whyItMatters ?? ''),
@@ -380,7 +409,7 @@ async function main() {
 
       // Link, publisher and publish date always come from the feed, never from the model.
       const record = buildArticleRecord(
-        { ...raw, source: item.source, sourceUrl: item.link },
+        { ...raw, source: item.source, sourceUrl: item.link, originalTitle: item.title },
         item.publishedAt
       );
       existingByKey.set(key, record);

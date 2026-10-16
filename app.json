@@ -6,9 +6,25 @@
     "scheme": "newzy",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "splash": { "backgroundColor": "#0C0F14", "resizeMode": "contain" },
-    "ios": { "supportsTablet": true, "bundleIdentifier": "com.newzyai.app" },
-    "android": { "package": "com.newzyai.app" },
-    "plugins": ["expo-router"]
+    "splash": {
+      "backgroundColor": "#0C0F14",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.newzyai.app"
+    },
+    "android": {
+      "package": "com.newzyai.app"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d4264a72-93a1-4ea5-a43e-3b97ad900736"
+      }
+    }
   }
 }
