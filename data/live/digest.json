@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-16T07:41:44.688Z",
+  "date": "2026-10-16T18:08:11.949Z",
   "headline": "Google launches Gemini 4 Argon",
-  "summary": "Google enters the frontier AI race with its newest model OpenAI upgrades its Google Chrome extension to interact directly with active tabs.",
+  "summary": "Google enters the frontier AI race with its newest model A new AI model aims to reason with images directly rather than just about them.",
   "topStoryId": "google-launches-gemini-4-argon",
   "stats": [
     {
@@ -9,12 +9,12 @@
       "value": "5"
     },
     {
-      "label": "startups",
-      "value": "3"
+      "label": "regulation",
+      "value": "4"
     },
     {
       "label": "ai-models",
-      "value": "3"
+      "value": "4"
     }
   ]
 }
