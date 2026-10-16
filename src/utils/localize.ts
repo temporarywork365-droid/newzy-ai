@@ -11,17 +11,23 @@ export interface LocalizedArticle {
   isHindi: boolean;
 }
 
-/** Only articles written by the live pipeline carry Hindi text. */
-export const hasHindi = (article: Article): boolean => !!(article.titleHi && article.summaryHi);
+// The free AI model sometimes writes "Hindi" in English letters (Hinglish). Only real Devanagari counts.
+const DEVANAGARI = /[\u0900-\u097F]/;
+const isDevanagari = (text?: string): text is string => !!text && DEVANAGARI.test(text);
 
-/** Picks Hindi when the reader chose it AND the article has it; otherwise English. */
+/** Only articles written by the live pipeline carry Hindi text, and only if it is real Devanagari. */
+export const hasHindi = (article: Article): boolean => isDevanagari(article.titleHi) && isDevanagari(article.summaryHi);
+
+const pick = (hindi: string | undefined, english: string): string => (isDevanagari(hindi) ? hindi : english);
+
+/** Picks Hindi when the reader chose it AND the article has it; otherwise English (field by field). */
 export function localizeArticle(article: Article, language: AppLanguage): LocalizedArticle {
   if (language === 'hi' && hasHindi(article)) {
     return {
-      title: article.titleHi ?? article.title,
-      dek: article.dekHi ?? article.dek,
-      summary: article.summaryHi ?? article.summary,
-      whyItMatters: article.whyItMattersHi ?? article.whyItMatters,
+      title: pick(article.titleHi, article.title),
+      dek: pick(article.dekHi, article.dek),
+      summary: pick(article.summaryHi, article.summary),
+      whyItMatters: pick(article.whyItMattersHi, article.whyItMatters),
       isHindi: true,
     };
   }

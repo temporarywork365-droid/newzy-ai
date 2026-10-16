@@ -15,8 +15,10 @@ export function Badge({ label, tone = 'neutral' }: { label: string; tone?: Tone 
         backgroundColor: colors[toneSoftKey[tone]],
       }}
     >
-      <AppText variant="caption" style={{ color: colors[toneStrongKey[tone]], textTransform: 'uppercase' }}>
-        {label}
+      {/* Upper-cased in code (not with textTransform) and kept on one line: on Android the pill was
+          measured with lowercase text, so "AI summary" wrapped and only "AI" stayed visible. */}
+      <AppText variant="caption" numberOfLines={1} style={{ color: colors[toneStrongKey[tone]], flexShrink: 0 }}>
+        {label.toUpperCase().replace(/ /g, '\u00A0')}
       </AppText>
     </View>
   );

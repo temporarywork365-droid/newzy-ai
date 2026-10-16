@@ -189,8 +189,10 @@ STRICT RULES:
   that are not in the text. If the snippet is thin, write shorter text instead of guessing.
 - Write everything in your own words. Do not copy sentences from the snippet.
 - Do NOT write any URL. Refer to the item only by its number in "sourceIndex".
-- The Hindi fields must say the same thing as the English fields and add nothing new. Write simple, natural
-  Hindi in Devanagari script; keep AI terms, company names and product names in English letters.
+- The Hindi fields must say the same thing as the English fields and add nothing new.
+- IMPORTANT: write the Hindi fields with Devanagari letters (for example: "गूगल ने नया मॉडल लॉन्च किया").
+  NEVER write Hindi in English/Roman letters (no "ab", "ko", "hai", "kiya"). Only AI terms, company names and
+  product names stay in English letters inside the Devanagari sentence.
 - "tryThis" is a ready-to-paste prompt (2-4 sentences, in English) that helps a student or professional apply
   the idea of the story with any AI chatbot. Keep it about the topic in general; do not put new facts about
   the story inside it.
@@ -327,6 +329,26 @@ function optText(value, max) {
   return t ? t.slice(0, max) : undefined;
 }
 
+// The free model sometimes writes "Hindi" in English letters. Only real Devanagari text is kept.
+const DEVANAGARI = /[\u0900-\u097F]/;
+
+/** Returns the four Hindi fields cleaned. If the headline or summary is not real Devanagari, all four are dropped. */
+function cleanHindi(source) {
+  const titleHi = optText(source.titleHi, 200);
+  const summaryHi = optText(source.summaryHi, 600);
+  if (!titleHi || !summaryHi || !DEVANAGARI.test(titleHi) || !DEVANAGARI.test(summaryHi)) {
+    return { titleHi: undefined, dekHi: undefined, summaryHi: undefined, whyItMattersHi: undefined };
+  }
+  const dekHi = optText(source.dekHi, 200);
+  const whyHi = optText(source.whyItMattersHi, 700);
+  return {
+    titleHi,
+    dekHi: dekHi && DEVANAGARI.test(dekHi) ? dekHi : undefined,
+    summaryHi,
+    whyItMattersHi: whyHi && DEVANAGARI.test(whyHi) ? whyHi : undefined,
+  };
+}
+
 function parseTryThis(value) {
   if (!value || typeof value !== 'object') return undefined;
   const title = optText(value.title, 80);
@@ -345,10 +367,7 @@ function buildArticleRecord(raw, publishedAtIso) {
     originalTitle: optText(raw.originalTitle, 300), // the publisher's own headline, shown for transparency
     dek: String(raw.dek ?? '').slice(0, 200),
     summary: String(raw.summary ?? ''),
-    titleHi: optText(raw.titleHi, 200),
-    dekHi: optText(raw.dekHi, 200),
-    summaryHi: optText(raw.summaryHi, 600),
-    whyItMattersHi: optText(raw.whyItMattersHi, 700),
+    ...cleanHindi(raw),
     tryThis: parseTryThis(raw.tryThis),
     whatHappened: String(raw.whatHappened ?? ''),
     importantDetails: Array.isArray(raw.importantDetails) ? raw.importantDetails.slice(0, 6).map(String) : [],
@@ -380,7 +399,8 @@ function dedupeKey(title) {
 async function main() {
   await mkdir(DATA_DIR, { recursive: true });
 
-  const existing = await readJsonSafe(ARTICLES_PATH, []);
+  // Clean up articles saved by earlier runs: drop "Hindi" that is really English letters.
+  const existing = (await readJsonSafe(ARTICLES_PATH, [])).map((a) => ({ ...a, ...cleanHindi(a) }));
   const existingByKey = new Map(existing.map((a) => [dedupeKey(a.title), a]));
   const knownUrls = new Set(existing.map((a) => a.sourceUrl).filter(Boolean));
 
