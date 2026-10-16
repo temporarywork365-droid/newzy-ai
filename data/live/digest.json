@@ -1,20 +1,20 @@
 {
-  "date": "2026-10-16T07:28:05.401Z",
+  "date": "2026-10-16T07:41:44.688Z",
   "headline": "Google launches Gemini 4 Argon",
-  "summary": "Google enters the frontier AI race with its newest model Meta teams up with Apple to release Muse Spark Open.",
+  "summary": "Google enters the frontier AI race with its newest model OpenAI upgrades its Google Chrome extension to interact directly with active tabs.",
   "topStoryId": "google-launches-gemini-4-argon",
   "stats": [
     {
       "label": "ai-tools",
-      "value": "4"
+      "value": "5"
+    },
+    {
+      "label": "startups",
+      "value": "3"
     },
     {
       "label": "ai-models",
-      "value": "2"
-    },
-    {
-      "label": "regulation",
-      "value": "2"
+      "value": "3"
     }
   ]
 }

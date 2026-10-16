@@ -1,5 +1,49 @@
 [
   {
+    "id": "cal-ai-achieves-viral-success-and-myfitnesspal-acquisition-t",
+    "status": "published",
+    "category": "startups",
+    "title": "Cal AI Achieves Viral Success and MyFitnessPal Acquisition Through Influencer Marketing",
+    "originalTitle": "When it came to Cal AI’s viral success, a small army of influencers paid off",
+    "dek": "The viral AI app generated over $30 million in revenue before being acquired.",
+    "summary": "Cal AI achieved viral success by leveraging a small army of paid influencers, generating over $30 million in revenue in two years. The company's rapid growth culminated in its acquisition by MyFitnessPal earlier this year.",
+    "titleHi": "Cal AI ने इन्फ्लुएंसर मार्केटिंग के जरिए हासिल की बड़ी सफलता",
+    "dekHi": "वायरल AI ऐप ने MyFitnessPal द्वारा अधिग्रहण से पहले करोड़ों का राजस्व कमाया।",
+    "summaryHi": "Cal AI ने भुगतान किए गए इन्फ्लुएंसर्स की मदद से वायरल सफलता हासिल की और दो साल में 30 मिलियन डॉलर से अधिक का राजस्व कमाया। तेज विकास के बाद इस कंपनी का मार्च में MyFitnessPal द्वारा अधिग्रहण कर लिया गया।",
+    "whyItMattersHi": "यह अधिग्रहण दिखाता है कि कैसे उपभोक्ता-केंद्रित AI स्टार्टअप कम समय में बड़े वित्तीय मील के पत्थर हासिल करने के लिए आधुनिक इन्फ्लुएंसर मार्केटिंग रणनीतियों का उपयोग कर सकते हैं।",
+    "tryThis": {
+      "title": "Build a Growth Strategy",
+      "prompt": "Act as a startup growth advisor. Outline an influencer marketing strategy for a consumer AI app aiming to scale rapidly over two years."
+    },
+    "whatHappened": "Cal AI leveraged a small army of paid influencers to drive its viral success, achieving over $30 million in revenue in two years. Following this rapid growth, the company was acquired by MyFitnessPal for an undisclosed amount of money in March.",
+    "importantDetails": [
+      "Generated over $30 million in revenue in two years",
+      "Relied on a small army of paid influencers for viral success",
+      "Acquired by MyFitnessPal in March"
+    ],
+    "whyItMatters": "This acquisition highlights how consumer-focused AI startups can leverage modern influencer marketing strategies to achieve massive financial milestones and exit opportunities in a short time frame.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/10/15/when-it-came-to-cal-ais-viral-success-a-small-army-of-influencers-paid-off/",
+    "publishedAt": "2026-10-15T23:44:56.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "Cal AI",
+      "MyFitnessPal",
+      "startups",
+      "acquisition"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 86,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 72
+  },
+  {
     "id": "chatgpt-chrome-extension-can-now-access-open-browser-tabs",
     "status": "published",
     "category": "ai-tools",
@@ -132,6 +176,50 @@
     "_significance": 75
   },
   {
+    "id": "amazon-devices-chief-envisions-ai-devices-replacing-apps",
+    "status": "published",
+    "category": "industry",
+    "title": "Amazon Devices Chief Envisions AI Devices Replacing Apps",
+    "originalTitle": "Amazon devices chief Panos Panay sees a future where AI devices replace the need to use apps",
+    "dek": "Panos Panay describes a future of ambient AI working in the background.",
+    "summary": "Amazon devices chief Panos Panay shared a vision where ambient AI devices operate in the background to anticipate user needs rather than waiting for explicit commands. He suggested that such AI devices could eventually eliminate the need to use traditional apps.",
+    "titleHi": "Amazon के डिवाइस प्रमुख का अनुमान, AI डिवाइस ऐप्स की जरूरत को खत्म कर देंगे",
+    "dekHi": "Panos Panay ने पृष्ठभूमि में काम करने वाले एम्बिएंट AI के भविष्य का वर्णन किया।",
+    "summaryHi": "Amazon के डिवाइस प्रमुख Panos Panay ने एक ऐसे भविष्य की कल्पना की है जहां एम्बिएंट AI डिवाइस स्पष्ट कमांड का इंतजार करने के बजाय पृष्ठभूमि में काम करते हैं और उपयोगकर्ता की जरूरतों का अनुमान लगाते हैं। उन्होंने सुझाव दिया कि ऐसे AI डिवाइस अंततः पारंपरिक ऐप्स का उपयोग करने की आवश्यकता को समाप्त कर सकते हैं।",
+    "whyItMattersHi": "ऐप-आधारित इंटरैक्शन से एम्बिएंट, भविष्य बताने वाले AI सहायकों की ओर बदलाव उपभोक्ता हार्डवेयर और सॉफ्टवेयर डिज़ाइन में एक मौलिक बदलाव का प्रतिनिधित्व करता है।",
+    "tryThis": {
+      "title": "Design Ambient AI Interfaces",
+      "prompt": "Act as a product designer. Propose three ways ambient AI could replace traditional smartphone applications in daily workflows."
+    },
+    "whatHappened": "Speaking at TechCrunch Disrupt, Amazon devices chief Panos Panay described a future where ambient AI devices work in the background. Instead of waiting for user commands, these devices will anticipate user needs and potentially remove the need to use apps entirely.",
+    "importantDetails": [
+      "Panos Panay spoke at TechCrunch Disrupt",
+      "Envisions ambient AI working in the background",
+      "AI devices could replace the need to use traditional apps"
+    ],
+    "whyItMatters": "Shifting from app-based interactions to ambient, predictive AI assistants represents a fundamental paradigm shift in consumer hardware and software design.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/10/15/amazon-devices-chief-panos-panay-sees-a-future-where-ai-devices-replace-the-need-to-use-apps/",
+    "publishedAt": "2026-10-15T19:55:25.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "Amazon",
+      "Panos Panay",
+      "AI devices",
+      "TechCrunch Disrupt"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 87,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 75
+  },
+  {
     "id": "anthropic-grants-metr-researchers-unrestricted-employee-leve",
     "status": "published",
     "category": "regulation",
@@ -174,6 +262,94 @@
     "relatedModelIds": [],
     "relatedToolIds": [],
     "_significance": 80
+  },
+  {
+    "id": "openai-launches-rosalind-academic-plan-for-research-labs",
+    "status": "published",
+    "category": "ai-models",
+    "title": "OpenAI Launches Rosalind Academic Plan for Research Labs",
+    "originalTitle": "Bringing GPT-Rosalind to academic research labs",
+    "dek": "Sponsored access to GPT-Rosalind aims to advance life sciences research.",
+    "summary": "OpenAI has introduced the Rosalind Academic Plan to provide eligible academic labs with sponsored access to GPT-Rosalind. The initiative aims to support and accelerate life sciences research using advanced AI tools.",
+    "titleHi": "OpenAI ने शोध प्रयोगशालाओं के लिए Rosalind अकादमिक योजना शुरू की",
+    "dekHi": "जीवन विज्ञान अनुसंधान को आगे बढ़ाने के लिए GPT-Rosalind तक प्रायोजित पहुंच प्रदान की जाती है।",
+    "summaryHi": "OpenAI ने योग्य अकादमिक प्रयोगशालाओं को GPT-Rosalind तक प्रायोजित पहुंच प्रदान करने के लिए Rosalind अकादमिक योजना पेश की है। इस पहल का उद्देश्य उन्नत AI टूल का उपयोग करके जीवन विज्ञान अनुसंधान का समर्थन और तेजी लाना है।",
+    "whyItMattersHi": "प्रायोजित पहुंच के माध्यम से अकादमिक प्रयोगशालाओं को विशेष AI मॉडल प्रदान करना जीवन विज्ञान अनुसंधान में सफलताओं और नवाचार को काफी तेज कर सकता है।",
+    "tryThis": {
+      "title": "Explore AI in Life Sciences",
+      "prompt": "Act as a bioinformatics researcher. Explain how specialized language models can assist in analyzing biological data and accelerating life sciences experiments."
+    },
+    "whatHappened": "OpenAI announced the Rosalind Academic Plan to bring GPT-Rosalind to academic research labs. The plan offers eligible academic labs sponsored access to GPT-Rosalind and specialized tools to help advance research in the life sciences sector.",
+    "importantDetails": [
+      "Introduced the Rosalind Academic Plan",
+      "Provides eligible academic labs with sponsored access",
+      "Aims to advance life sciences research with GPT-Rosalind"
+    ],
+    "whyItMatters": "Providing specialized AI models to academic labs through sponsored access can significantly accelerate breakthroughs and innovation in life sciences research.",
+    "source": "OpenAI",
+    "sourceUrl": "https://openai.com/index/introducing-the-rosalind-academic-plan",
+    "publishedAt": "2026-10-15T19:00:00.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "OpenAI",
+      "GPT-Rosalind",
+      "life sciences",
+      "research"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 88,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 78
+  },
+  {
+    "id": "bluesky-expands-attie-platform-for-social-vibe-coding",
+    "status": "published",
+    "category": "ai-coding",
+    "title": "Bluesky Expands Attie Platform for Social Vibe Coding",
+    "originalTitle": "Bluesky expands its AI-powered Attie app to let anyone build websites, games, and more",
+    "dek": "Users can now build websites, games, and interactive experiences.",
+    "summary": "Bluesky is expanding its experimental Attie platform to introduce social vibe coding. The feature allows any user to build interactive experiences like games, quizzes, and websites that connect with the social network's audience.",
+    "titleHi": "Bluesky ने सोशल वाइब कोडिंग के लिए Attie प्लेटफॉर्म का विस्तार किया",
+    "dekHi": "उपयोगकर्ता अब वेबसाइट, गेम और अन्य इंटरैक्टिव अनुभव बना सकते हैं।",
+    "summaryHi": "Bluesky सोशल वाइब कोडिंग पेश करने के लिए अपने प्रायोगिक Attie प्लेटफॉर्म का विस्तार कर रहा है। यह सुविधा किसी भी उपयोगकर्ता को गेम, क्विज़ और वेबसाइट जैसे इंटरैक्टिव अनुभव बनाने की अनुमति देती है जो सोशल नेटवर्क के दर्शकों से जुड़ सकते हैं।",
+    "whyItMattersHi": "सॉफ्टवेयर निर्माण टूल को सीधे सोशल प्लेटफॉर्म में एकीकृत करने से आम उपयोगकर्ताओं को इंटरैक्टिव सामग्री उत्पन्न करने और इसे अपने समुदायों के साथ मूल रूप से साझा करने का अधिकार मिलता है।",
+    "tryThis": {
+      "title": "Brainstorm Social Apps",
+      "prompt": "Act as a creative technologist. Suggest three interactive mini-games or quizzes that everyday users could build to engage a social media audience."
+    },
+    "whatHappened": "Bluesky is bringing social vibe coding to its experimental Attie platform. This expansion allows users to build websites, games, and other interactive experiences that can tap directly into the social network's audience.",
+    "importantDetails": [
+      "Expands the experimental Attie platform",
+      "Introduces social vibe coding",
+      "Allows users to build games, quizzes, and websites"
+    ],
+    "whyItMatters": "Integrating software creation tools directly into social platforms empowers everyday users to generate interactive content and share it natively with their communities.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/10/15/bluesky-expands-its-ai-powered-attie-app-to-let-anyone-build-websites-games-and-more/",
+    "publishedAt": "2026-10-15T18:56:46.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "Bluesky",
+      "Attie",
+      "vibe coding",
+      "social media"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 84,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 70
   },
   {
     "id": "meta-and-apple-collaborate-to-bring-muse-ai-models-to-mac-de",
@@ -358,6 +534,50 @@
     "relatedModelIds": [],
     "relatedToolIds": [],
     "_significance": 65
+  },
+  {
+    "id": "figma-introduces-new-features-to-define-agent-workflows",
+    "status": "published",
+    "category": "ai-tools",
+    "title": "Figma Introduces New Features to Define Agent Workflows",
+    "originalTitle": "Figma announces new features to define how agents work on its platform",
+    "dek": "Code layers feature is also released in open beta.",
+    "summary": "Figma has announced new features designed to define how AI agents operate on its platform. Additionally, the company is releasing its code layers feature in open beta for users and developers.",
+    "titleHi": "Figma ने एजेंट वर्कफ़्लो को परिभाषित करने के लिए नई सुविधाएँ पेश कीं",
+    "dekHi": "कोड लेयर्स फीचर भी ओपन बीटा में जारी किया गया है।",
+    "summaryHi": "Figma ने नए फीचर्स की घोषणा की है जो यह परिभाषित करने के लिए डिज़ाइन किए गए हैं कि AI एजेंट इसके प्लेटफॉर्म पर कैसे काम करते हैं। इसके अतिरिक्त, कंपनी अपनी कोड लेयर्स सुविधा को ओपन बीटा में जारी कर रही है।",
+    "whyItMattersHi": "चूंकि डिज़ाइन और विकास वर्कफ़्लो में अधिक स्वचालन शामिल होता है, इसलिए आधुनिक डिज़ाइन टूलिंग के लिए AI एजेंटों और कोड लेयर्स का समर्थन करने के लिए Figma जैसे प्लेटफ़ॉर्म का अनुकूलन करना एक महत्वपूर्ण कदम है।",
+    "tryThis": {
+      "title": "Design Agent Workflows",
+      "prompt": "Act as a UX designer. Describe a workflow where an AI agent interacts with design layers and code components in a collaborative tool."
+    },
+    "whatHappened": "Figma announced new capabilities to define how agents work within its platform ecosystem. Alongside these agent-focused additions, the company rolled out its code layers feature in open beta.",
+    "importantDetails": [
+      "Announced new features to define agent operations",
+      "Released code layers feature in open beta",
+      "Updates target platform workflows"
+    ],
+    "whyItMatters": "As design and development workflows incorporate more automation, platforms like Figma adapting to support AI agents and code layers is a critical step for modern design tooling.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/10/14/figma-announces-new-features-to-define-how-agents-work-on-its-platform/",
+    "publishedAt": "2026-10-15T04:30:00.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "Figma",
+      "AI agents",
+      "code layers",
+      "design tools"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 86,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 74
   },
   {
     "id": "ricursive-intelligence-develops-ai-to-design-computer-chips",
@@ -577,6 +797,50 @@
     "relatedModelIds": [],
     "relatedToolIds": [],
     "_significance": 82
+  },
+  {
+    "id": "youtube-music-launches-labels-for-ai-generated-music",
+    "status": "published",
+    "category": "ai-audio",
+    "title": "YouTube Music Launches Labels for AI-Generated Music",
+    "originalTitle": "YouTube Music launches new labels as AI-generated music floods streaming platforms",
+    "dek": "New labels identify fully or partially AI-generated tracks on streaming platforms.",
+    "summary": "YouTube Music is launching new labels to address the flood of AI-generated music on streaming platforms. These labels will appear on the player page to indicate songs that were entirely or partially generated by AI, including AI involvement in composition and vocals.",
+    "titleHi": "YouTube Music ने AI-जनित संगीत के लिए नए लेबल लॉन्च किए",
+    "dekHi": "नए लेबल स्ट्रीमिंग प्लेटफॉर्म पर पूरी तरह या आंशिक रूप से AI द्वारा बनाए गए ट्रैक की पहचान करते हैं।",
+    "summaryHi": "YouTube Music स्ट्रीमिंग प्लेटफॉर्म पर AI-जनित संगीत की बाढ़ से निपटने के लिए नए लेबल लॉन्च कर रहा है। ये लेबल प्लेयर पेज पर उन गानों को इंगित करने के लिए दिखाई देंगे जो पूरी तरह से या आंशिक रूप से AI द्वारा उत्पन्न किए गए थे, जिसमें रचना और गायन में AI की भागीदारी शामिल है।",
+    "whyItMattersHi": "स्ट्रीमिंग सेवाओं पर AI-जनित सामग्री की स्पष्ट लेबलिंग पारदर्शिता के लिए आवश्यक है और श्रोताओं को मानव-निर्मित कला और स्वचालित ऑडियो के बीच अंतर करने में मदद करती है।",
+    "tryThis": {
+      "title": "Analyze Music Transparency",
+      "prompt": "Act as a music industry analyst. Discuss the pros and cons of implementing mandatory transparency labels for AI-composed songs on streaming platforms."
+    },
+    "whatHappened": "YouTube Music launched new labels as streaming platforms face a flood of AI-generated music. The label appears on the player page for songs that are entirely generated by AI or involve AI in aspects like composition and vocals.",
+    "importantDetails": [
+      "Launches new labels for AI music",
+      "Appears on the player page",
+      "Covers fully or partially AI-generated songs, including composition and vocals"
+    ],
+    "whyItMatters": "Clear labeling of AI-generated content on streaming services is essential for transparency and helps listeners distinguish between human-made art and automated audio.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/10/14/youtube-music-launches-new-labels-as-ai-generated-music-floods-streaming-platforms/",
+    "publishedAt": "2026-10-14T18:23:46.000Z",
+    "author": "Newzy AI Desk",
+    "readMinutes": 3,
+    "tags": [
+      "YouTube Music",
+      "AI music",
+      "streaming",
+      "transparency"
+    ],
+    "featured": false,
+    "breaking": false,
+    "trendingScore": 86,
+    "imageUrl": null,
+    "relatedIds": [],
+    "relatedTopicIds": [],
+    "relatedModelIds": [],
+    "relatedToolIds": [],
+    "_significance": 76
   },
   {
     "id": "youtube-rolls-out-new-labels-to-identify-ai-generated-music-",
