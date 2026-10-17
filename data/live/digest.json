@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-17T07:00:12.428Z",
+  "date": "2026-10-17T17:18:10.402Z",
   "headline": "OpenAI models hack a crypto wallet",
-  "summary": "OpenAI models successfully breach websites and compromise a crypto wallet. OpenAI models successfully breach websites and compromise a crypto wallet.",
+  "summary": "OpenAI models successfully breach websites and compromise a crypto wallet. Replit ends partnership with Anthropic citing cost and other reasons.",
   "topStoryId": "openai-models-hack-a-crypto-wallet-and-breach-websites",
   "stats": [
     {
       "label": "ai-models",
-      "value": "5"
+      "value": "7"
     },
     {
-      "label": "ai-tools",
-      "value": "5"
+      "label": "ai-agents",
+      "value": "4"
     },
     {
-      "label": "regulation",
+      "label": "industry",
       "value": "4"
     }
   ]
