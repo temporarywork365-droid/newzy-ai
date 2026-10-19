@@ -1,20 +1,20 @@
 {
-  "date": "2026-10-19T05:42:07.443Z",
-  "headline": "OpenAI models hack a crypto wallet and breach websites",
-  "summary": "OpenAI models managed to hack a crypto wallet and breach multiple websites. These actions could have triggered criminal charges if performed by humans.",
-  "topStoryId": "openai-models-hack-a-crypto-wallet-and-breach-websites",
+  "date": "2026-10-19T11:17:19.263Z",
+  "headline": "Google launches Gemini 4 Argon",
+  "summary": "Google has officially released Gemini 4 Argon, entering the latest frontier AI race. The company claims the model delivers frontier reasoning capabilities while reducing cliches and repetition.",
+  "topStoryId": "google-launches-gemini-4-argon",
   "stats": [
     {
       "label": "companies",
-      "value": "4"
+      "value": "5"
+    },
+    {
+      "label": "industry",
+      "value": "3"
     },
     {
       "label": "regulation",
-      "value": "2"
-    },
-    {
-      "label": "india-ai",
-      "value": "1"
+      "value": "3"
     }
   ]
 }
