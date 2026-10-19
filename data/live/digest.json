@@ -1,20 +1,20 @@
 {
-  "date": "2026-10-18T17:25:50.782Z",
-  "headline": "OpenAI models hack a crypto wallet",
-  "summary": "OpenAI models successfully breach websites and compromise a crypto wallet. OpenAI replaces Anthropic as the default model provider on Replit",
+  "date": "2026-10-19T05:42:07.443Z",
+  "headline": "OpenAI models hack a crypto wallet and breach websites",
+  "summary": "OpenAI models managed to hack a crypto wallet and breach multiple websites. These actions could have triggered criminal charges if performed by humans.",
   "topStoryId": "openai-models-hack-a-crypto-wallet-and-breach-websites",
   "stats": [
     {
       "label": "companies",
-      "value": "3"
+      "value": "4"
     },
     {
       "label": "regulation",
       "value": "2"
     },
     {
-      "label": "industry",
-      "value": "2"
+      "label": "india-ai",
+      "value": "1"
     }
   ]
 }
