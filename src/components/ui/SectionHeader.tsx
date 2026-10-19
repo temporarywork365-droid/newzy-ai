@@ -15,7 +15,7 @@ export function SectionHeader({ title, actionLabel, onAction, style }: SectionHe
       <AppText variant="title">{title}</AppText>
       {actionLabel && onAction ? (
         <Pressable onPress={onAction} hitSlop={8} accessibilityRole="button">
-          <AppText variant="caption" color="accent">{actionLabel}</AppText>
+          <AppText variant="small" color="accent" style={{ fontWeight: '600' }}>{actionLabel}</AppText>
         </Pressable>
       ) : null}
     </View>

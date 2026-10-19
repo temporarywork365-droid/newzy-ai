@@ -27,7 +27,7 @@ export function PromptEditor({ value, onChangeText, placeholder = 'e.g. Create a
         autoCorrect
         style={{
           minHeight: 120, maxHeight: 240,
-          color: colors.textPrimary, fontSize: 15, lineHeight: 22, padding: 0,
+          color: colors.textPrimary, fontSize: 16, lineHeight: 24, padding: 0,
         }}
       />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: spacing.sm }}>

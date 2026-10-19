@@ -10,7 +10,7 @@ export function Badge({ label, tone = 'neutral' }: { label: string; tone?: Tone 
     <View
       style={{
         paddingHorizontal: spacing.sm,
-        paddingVertical: 2,
+        paddingVertical: 3,
         borderRadius: radius.full,
         backgroundColor: colors[toneSoftKey[tone]],
       }}

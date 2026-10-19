@@ -28,7 +28,7 @@ export function Button({ label, onPress, variant = 'primary', icon, disabled = f
       accessibilityRole="button"
       style={({ pressed }) => [
         {
-          height: 48,
+          minHeight: 52,
           borderRadius: radius.md,
           alignItems: 'center',
           justifyContent: 'center',
@@ -43,8 +43,8 @@ export function Button({ label, onPress, variant = 'primary', icon, disabled = f
         style,
       ]}
     >
-      {icon ? <Ionicons name={icon} size={16} color={contentColor} /> : null}
-      <AppText variant="heading" style={{ color: contentColor, fontWeight: '600' }}>{label}</AppText>
+      {icon ? <Ionicons name={icon} size={18} color={contentColor} /> : null}
+      <AppText variant="body" style={{ color: contentColor, fontWeight: '600' }}>{label}</AppText>
     </Pressable>
   );
 }

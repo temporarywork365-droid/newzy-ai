@@ -20,8 +20,16 @@ export interface Palette {
   dangerSoft: string;
   info: string;
   infoSoft: string;
+  /* Extra colors that give categories and boxes their own identity. */
+  violet: string;
+  violetSoft: string;
+  rose: string;
+  roseSoft: string;
+  orange: string;
+  orangeSoft: string;
 }
 
+/* Text colors were tuned so every text/background pair passes the 4.5:1 readability guideline (WCAG AA). */
 export const lightPalette: Palette = {
   background: '#F6F6F3',
   surface: '#FFFFFF',
@@ -29,30 +37,36 @@ export const lightPalette: Palette = {
   border: '#E2E2DC',
   tabBar: '#FFFFFF',
   textPrimary: '#15181D',
-  textSecondary: '#5B6470',
-  textTertiary: '#98A0AC',
-  accent: '#0C7C76',
+  textSecondary: '#454E5A',
+  textTertiary: '#626C78',
+  accent: '#0B736E',
   onAccent: '#FFFFFF',
   accentSoft: '#DEEDEB',
-  success: '#1E7F4E',
+  success: '#1C7749',
   successSoft: '#E0F0E7',
-  warning: '#96690F',
+  warning: '#8A610E',
   warningSoft: '#F5EAD3',
   danger: '#B3372C',
   dangerSoft: '#F7E2DF',
   info: '#2F5FB0',
   infoSoft: '#E0E9F6',
+  violet: '#6D4FD6',
+  violetSoft: '#EFEAFB',
+  rose: '#BE2F6E',
+  roseSoft: '#FBE7F0',
+  orange: '#AF4F0A',
+  orangeSoft: '#FDEEDD',
 };
 
 export const darkPalette: Palette = {
-  background: '#0C0F14',
-  surface: '#151A23',
-  surfaceAlt: '#1E2531',
-  border: '#27303E',
-  tabBar: '#10141B',
-  textPrimary: '#E9EBF0',
-  textSecondary: '#A8B0BD',
-  textTertiary: '#6C7583',
+  background: '#05070B',
+  surface: '#0F141B',
+  surfaceAlt: '#18202A',
+  border: '#232C38',
+  tabBar: '#080B10',
+  textPrimary: '#EEF1F6',
+  textSecondary: '#B0B8C5',
+  textTertiary: '#8B95A3',
   accent: '#35C4BD',
   onAccent: '#062725',
   accentSoft: '#14312F',
@@ -64,6 +78,12 @@ export const darkPalette: Palette = {
   dangerSoft: '#2D1815',
   info: '#82A9E9',
   infoSoft: '#16222F',
+  violet: '#A78BFA',
+  violetSoft: '#221A3F',
+  rose: '#F472B6',
+  roseSoft: '#3B1829',
+  orange: '#FB923C',
+  orangeSoft: '#3A2110',
 };
 
 export const toneSoftKey: Record<Tone, keyof Palette> = {
@@ -73,6 +93,9 @@ export const toneSoftKey: Record<Tone, keyof Palette> = {
   warning: 'warningSoft',
   danger: 'dangerSoft',
   info: 'infoSoft',
+  violet: 'violetSoft',
+  rose: 'roseSoft',
+  orange: 'orangeSoft',
 };
 
 export const toneStrongKey: Record<Tone, keyof Palette> = {
@@ -82,4 +105,7 @@ export const toneStrongKey: Record<Tone, keyof Palette> = {
   warning: 'warning',
   danger: 'danger',
   info: 'info',
+  violet: 'violet',
+  rose: 'rose',
+  orange: 'orange',
 };

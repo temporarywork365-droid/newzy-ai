@@ -42,7 +42,7 @@ function AgentCard({ agent }: { agent: AgentProfile }) {
   const { spacing } = useTheme();
   return (
     <Card onPress={() => router.push(routes.agent(agent.id))}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: spacing.sm, rowGap: 4 }}>
         <AppText variant="heading" numberOfLines={1} style={{ flexShrink: 1 }}>{agent.name}</AppText>
         <Badge label={agent.autonomy} tone={toneForAutonomy(agent.autonomy)} />
       </View>

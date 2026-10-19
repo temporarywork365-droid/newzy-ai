@@ -19,6 +19,7 @@ import { research } from './data/research';
 import { digest, topics } from './data/topics';
 import { tools } from './data/tools';
 import { workflows } from './data/workflows';
+import { useLiveStatusStore } from '@/store/liveStatusStore';
 import { clearLiveDataCache, getLiveArticles, getLiveDigest } from './liveData';
 import { analyzePrompt } from './promptLabEngine';
 
@@ -214,6 +215,7 @@ const normalizeLiveArticle = (a: Article): Article => ({
 });
 
 let liveReady: Promise<void> | null = null;
+let liveSignature = ''; // ids of the live stories we currently show, to tell whether a refresh brought anything new
 
 function ensureLiveData(): Promise<void> {
   if (!liveReady) {
@@ -224,6 +226,9 @@ function ensureLiveData(): Promise<void> {
           ? liveArticles.filter(isUsableLiveArticle).map(normalizeLiveArticle)
           : [];
         if (usable.length === 0) return; // keep sample data
+
+        liveSignature = usable.map((article) => article.id).join(',');
+        useLiveStatusStore.getState().markUpdated();
 
         allArticles = [...usable, ...articles.filter(isTutorial)];
         publishedArticles = allArticles.filter((article) => article.status === 'published');
@@ -247,12 +252,15 @@ function ensureLiveData(): Promise<void> {
   return liveReady;
 }
 
-/** Pull-to-refresh calls this: forget the cached download and fetch the newest news from GitHub again.
-    If the phone is offline, the last live data already in memory stays on screen. */
-export async function refreshLiveData(): Promise<void> {
+/** Pull-to-refresh and the automatic refresh call this: forget the cached download and fetch the newest news
+    from GitHub again. Returns true if the stories changed. If the phone is offline, the last live data already
+    in memory stays on screen (and it returns false). */
+export async function refreshLiveData(): Promise<boolean> {
+  const before = liveSignature;
   clearLiveDataCache();
   liveReady = null;
   await ensureLiveData();
+  return liveSignature !== before; // true when new or changed stories arrived
 }
 
 /* ── transport ─────────────────────────────── */

@@ -25,7 +25,7 @@ export function AgentDetailScreen({ id }: { id: string }) {
     <Screen scroll contentContainerStyle={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xxl }}>
       <DetailHeader right={<SaveButton id={agent.id} type="agent" />} />
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm }}>
         <AppText variant="display" style={{ flexShrink: 1 }}>{agent.name}</AppText>
         <Badge label={agent.autonomy} tone={toneForAutonomy(agent.autonomy)} />
       </View>

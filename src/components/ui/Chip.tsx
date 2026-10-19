@@ -26,7 +26,7 @@ export function Chip({ label, active = false, tone = 'neutral', icon, onPress, s
         {
           flexDirection: 'row', alignItems: 'center', gap: 4,
           paddingHorizontal: small ? spacing.sm : spacing.md,
-          paddingVertical: small ? 3 : 5,
+          paddingVertical: small ? 5 : 7,
           borderRadius: radius.full,
           backgroundColor,
         },
@@ -38,7 +38,7 @@ export function Chip({ label, active = false, tone = 'neutral', icon, onPress, s
       <AppText
         variant="caption"
         numberOfLines={1}
-        style={{ color: textColor, fontSize: small ? 10 : 11, flexShrink: 0 }}
+        style={{ color: textColor, fontSize: small ? 11 : 13, flexShrink: 0 }}
       >
         {label.replace(/ /g, '\u00A0')}
       </AppText>
@@ -47,7 +47,7 @@ export function Chip({ label, active = false, tone = 'neutral', icon, onPress, s
 
   if (!onPress) return body;
   return (
-    <Pressable onPress={onPress} hitSlop={6} accessibilityRole="button">
+    <Pressable onPress={onPress} hitSlop={8} accessibilityRole="button">
       {body}
     </Pressable>
   );

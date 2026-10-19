@@ -32,7 +32,7 @@ export function ToolDetailScreen({ id }: { id: string }) {
     <Screen scroll contentContainerStyle={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xxl }}>
       <DetailHeader right={<SaveButton id={tool.id} type="tool" />} />
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm }}>
         <AppText variant="display" style={{ flexShrink: 1 }}>{tool.name}</AppText>
         <Badge label={PRICING_MODEL_LABELS[tool.pricingModel]} tone={toneForPricing(tool.pricingModel)} />
       </View>

@@ -18,14 +18,14 @@ export const companies: Company[] = [
   },
   {
     id: 'anthropic', name: 'Anthropic', tagline: 'AI safety company behind Claude',
-    summary: 'Anthropic builds the Claude family with a research focus on safety and interpretability. Its current lineup spans Opus 5.5, Sonnet 5.5 and the Mythos-tier Fable 5.1. Bloomberg has reported it is weighing an IPO.',
+    summary: 'Anthropic builds the Claude family with a research focus on safety and interpretability. Its current lineup spans Haiku 5.5, Sonnet 5.5, Opus 5.5 and the Mythos-tier Fable 5.1. Bloomberg has reported it is weighing an IPO.',
     hq: 'San Francisco, USA', founded: 2021,
     founders: ['Dario Amodei', 'Daniela Amodei', 'others'],
     focus: ['Frontier models', 'AI safety', 'Enterprise AI', 'Coding agents'],
     keyProducts: ['Claude', 'Claude Code', 'Anthropic API'],
     funding: { totalRaised: 'Undisclosed', lastRound: 'Undisclosed', investors: ['Google', 'Amazon'] },
     employees: 'Undisclosed', website: 'https://www.anthropic.com',
-    modelIds: ['claude-opus-5-5', 'claude-sonnet-5-5', 'claude-fable-5-1', 'claude-haiku-4-5'], tags: ['lab', 'safety', 'claude'],
+    modelIds: ['claude-opus-5-5', 'claude-sonnet-5-5', 'claude-fable-5-1', 'claude-haiku-5-5'], tags: ['lab', 'safety', 'claude'],
   },
   {
     id: 'google-deepmind', name: 'Google DeepMind', tagline: 'Frontier research at planetary scale',
@@ -98,13 +98,13 @@ export const companies: Company[] = [
   },
   {
     id: 'meta', name: 'Meta AI (FAIR)', tagline: 'The open-weights engine',
-    summary: 'Meta\u2019s AI research arm, known for the Llama open-weight models and the PyTorch framework.',
+    summary: 'Meta\u2019s AI research arm, known for the Llama open-weight models and the PyTorch framework. Its newer Muse family, built by Meta Superintelligence Labs, includes the proprietary Muse Wonder and the open-weight Muse Spark Open.',
     hq: 'Menlo Park, USA', founded: 2013,
     founders: ['Yann LeCun'],
     focus: ['Open-weight models', 'Research', 'Infrastructure'],
-    keyProducts: ['Llama models', 'PyTorch', 'Segment Anything'],
+    keyProducts: ['Muse Wonder', 'Muse Spark Open', 'Llama models', 'PyTorch', 'Segment Anything'],
     funding: { totalRaised: 'Corporate-funded', lastRound: 'n/a', investors: ['Meta'] },
     employees: 'Undisclosed', website: 'https://ai.meta.com',
-    modelIds: [], tags: ['open source', 'research', 'llama'],
+    modelIds: ['muse-wonder', 'muse-spark-open'], tags: ['open source', 'research', 'llama', 'muse'],
   },
 ];

@@ -5,12 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { Screen } from '@/components/ui/Screen';
 import { AppText } from '@/components/ui/AppText';
 import { Badge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
-import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { FilterRow, type FilterOption } from '@/components/ui/FilterRow';
 import { SearchEntry } from '@/components/ui/SearchEntry';
+import { ExploreGrid, TopFiveCard, TrendingStrip } from './FirstScreenBlocks';
 import { SkeletonRows } from '@/components/ui/StateViews';
 import { OfflineBanner } from '@/components/ui/OfflineBanner';
 import { ListRow } from '@/components/ui/ListRow';
@@ -20,21 +19,19 @@ import { ModelMiniCard } from '@/components/models/ModelMiniCard';
 import { ToolMiniCard } from '@/components/tools/ToolMiniCard';
 import { refreshLiveData } from '@/api/mock/mockApi';
 import { INTEREST_LABELS } from '@/constants/interests';
-import { EXPLORE_SECTIONS, LEARNING_TRACK_LABELS, NEWS_CATEGORY_LABELS } from '@/constants/taxonomy';
+import { EXPLORE_SECTIONS, LEARNING_TRACK_LABELS } from '@/constants/taxonomy';
 import { personalizeArticles } from '@/features/personalization/recommendationEngine';
 import {
-  useBreakingNews, useDailyDigest, useFeaturedConcepts, useFeaturedNews,
+  useBreakingNews, useFeaturedConcepts, useFeaturedNews,
   useForYouNews, useLatestNews, useTrendingModels, useTrendingTools,
   useTrendingTopics, useWorkflows,
 } from '@/hooks/queries';
 import { useInterestsStore } from '@/store/interestsStore';
-import { usePreferencesStore } from '@/store/preferencesStore';
-import { localizeArticle } from '@/utils/localize';
-import { formatRelativeTime, formatToday } from '@/utils/format';
+import { pickTopStories } from '@/utils/brief';
+import { formatRelativeTime } from '@/utils/format';
 import { routes } from '@/utils/navigation';
 import { useTheme } from '@/theme/ThemeProvider';
-import { shadows } from '@/theme/tokens';
-import type { Article, DailyDigest, NewsCategory } from '@/types';
+import type { Article, NewsCategory } from '@/types';
 
 const NEWS_FILTERS: FilterOption<'all' | NewsCategory>[] = [
   { value: 'all', label: 'All' },
@@ -71,54 +68,6 @@ function BreakingBanner({ article }: { article: Article }) {
   );
 }
 
-function TodayCard({ digest }: { digest: DailyDigest }) {
-  const { colors, spacing, radius } = useTheme();
-  return (
-    <Card onPress={() => router.push(routes.article(digest.topStoryId))} style={shadows.raised}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <AppText variant="caption" color="accent" style={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>Today's AI</AppText>
-        <AppText variant="caption" color="tertiary">{formatToday()}</AppText>
-      </View>
-      <AppText variant="title" style={{ marginTop: spacing.sm }}>{digest.headline}</AppText>
-      <AppText variant="small" color="secondary" numberOfLines={3} style={{ marginTop: spacing.xs }}>
-        {digest.summary}
-      </AppText>
-      <View style={{ flexDirection: 'row', gap: spacing.md, marginTop: spacing.lg }}>
-        {digest.stats.map((stat) => (
-          <View key={stat.label} style={{ flex: 1, backgroundColor: colors.surfaceAlt, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.xs }}>
-            <AppText variant="heading" style={{ textAlign: 'center' }}>{stat.value}</AppText>
-            <AppText variant="caption" color="tertiary" style={{ textAlign: 'center', marginTop: 2 }}>{stat.label}</AppText>
-          </View>
-        ))}
-      </View>
-      <AppText variant="caption" color="accent" style={{ marginTop: spacing.md }}>Read the top story →</AppText>
-    </Card>
-  );
-}
-
-function BriefCard({ article, index, total, width }: { article: Article; index: number; total: number; width: number }) {
-  const { spacing } = useTheme();
-  const language = usePreferencesStore((state) => state.language);
-  const text = localizeArticle(article, language);
-  return (
-    <Card onPress={() => router.push(routes.article(article.id))} style={{ width, minHeight: 230 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-        <Badge label={`${index + 1} / ${total}`} tone="accent" />
-        <Badge label={NEWS_CATEGORY_LABELS[article.category]} />
-        <AppText variant="caption" color="tertiary" style={{ flex: 1, textAlign: 'right' }}>
-          {formatRelativeTime(article.publishedAt)}
-        </AppText>
-      </View>
-      <AppText variant="title" hi={text.isHindi} numberOfLines={3} style={{ marginTop: spacing.md }}>{text.title}</AppText>
-      <AppText variant="small" color="secondary" hi={text.isHindi} numberOfLines={5} style={{ marginTop: spacing.sm }}>
-        {text.summary}
-      </AppText>
-      <AppText variant="caption" color="tertiary" style={{ marginTop: spacing.md }}>{article.source} · AI summary</AppText>
-      <AppText variant="caption" color="accent" style={{ marginTop: spacing.xs }}>Read the full story →</AppText>
-    </Card>
-  );
-}
-
 function PersonalizeBanner({ onPress }: { onPress: () => void }) {
   const { colors, spacing, radius } = useTheme();
   return (
@@ -150,9 +99,10 @@ export function HomeScreen() {
   const { colors, spacing } = useTheme();
   const [category, setCategory] = useState<'all' | NewsCategory>('all');
   const [liveRefreshing, setLiveRefreshing] = useState(false);
-  const { width: windowWidth } = useWindowDimensions();
+  const { height: windowHeight } = useWindowDimensions();
+  // Taller phones show two lines per headline; shorter phones show one so the first screen still fits.
+  const titleLines: 1 | 2 = windowHeight >= 720 ? 2 : 1;
 
-  const digest = useDailyDigest();
   const breaking = useBreakingNews();
   const featured = useFeaturedNews();
   const latest = useLatestNews(category === 'all' ? undefined : category);
@@ -173,17 +123,13 @@ export function HomeScreen() {
   const hasInterests = interestsHydrated && interests.length > 0;
 
   // "Today's top 5": the most important stories of the last 48 hours (falls back to the newest ones).
-  const briefArticles = useMemo(() => {
-    const pool = (forYouPool.data ?? []).filter((article) => !article.tags.includes('tutorial'));
-    const cutoff = Date.now() - 48 * 3_600_000;
-    const fresh = pool.filter((article) => new Date(article.publishedAt).getTime() >= cutoff);
-    const source = fresh.length >= 3 ? fresh : pool;
-    return [...source].sort((a, b) => (b.trendingScore ?? 0) - (a.trendingScore ?? 0)).slice(0, 5);
-  }, [forYouPool.data]);
-  const briefWidth = windowWidth - spacing.lg * 2 - 24; // leave a peek of the next card
+  const briefArticles = useMemo(() => pickTopStories(forYouPool.data ?? []), [forYouPool.data]);
+  const briefIds = useMemo(() => new Set(briefArticles.map((article) => article.id)), [briefArticles]);
+  // Never show the same story twice at the top: the breaking banner only appears if it adds something new.
+  const bannerArticles = (breaking.data ?? []).filter((article) => !briefIds.has(article.id)).slice(0, 1);
 
   const refreshing =
-    liveRefreshing || digest.isRefetching || breaking.isRefetching || featured.isRefetching ||
+    liveRefreshing || breaking.isRefetching || featured.isRefetching ||
     latest.isRefetching || trendingModels.isRefetching || trendingTools.isRefetching ||
     trendingTopics.isRefetching || learn.isRefetching || workflows.isRefetching;
 
@@ -194,7 +140,7 @@ export function HomeScreen() {
     } finally {
       setLiveRefreshing(false);
     }
-    digest.refetch(); breaking.refetch(); featured.refetch(); latest.refetch();
+    breaking.refetch(); featured.refetch(); latest.refetch();
     trendingModels.refetch(); trendingTools.refetch(); trendingTopics.refetch();
     learn.refetch(); workflows.refetch(); forYouPool.refetch();
   };
@@ -235,39 +181,32 @@ export function HomeScreen() {
         <OfflineBanner />
       </View>
 
-      {/* Breaking / important updates */}
-      {breaking.data && breaking.data.length > 0 && (
-        <View style={{ gap: spacing.md, marginBottom: spacing.md }}>
-          {breaking.data.slice(0, 2).map((article) => (
+      {/* Trending topics: one colorful line */}
+      {trendingTopics.data && trendingTopics.data.length > 0 && (
+        <View style={{ marginTop: spacing.sm }}>
+          <TrendingStrip topics={trendingTopics.data} />
+        </View>
+      )}
+
+      {/* Breaking news, only if it is not already one of the top 5 */}
+      {bannerArticles.length > 0 && (
+        <View style={{ gap: spacing.md, marginTop: spacing.md }}>
+          {bannerArticles.map((article) => (
             <BreakingBanner key={article.id} article={article} />
           ))}
         </View>
       )}
 
-      {/* Today's AI */}
-      {digest.data && <TodayCard digest={digest.data} />}
+      {/* Today's top 5: all five visible without scrolling */}
+      <View style={{ marginTop: spacing.md }}>
+        <TopFiveCard articles={briefArticles} loading={forYouPool.isLoading} titleLines={titleLines} />
+      </View>
 
-      {/* Today's top 5 — swipe through the day's main stories */}
-      {briefArticles.length > 0 && (
-        <View style={{ marginTop: spacing.lg }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-            <AppText variant="title">Today's top {briefArticles.length}</AppText>
-            <LanguageToggle />
-          </View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            decelerationRate="fast"
-            snapToInterval={briefWidth + spacing.md}
-            snapToAlignment="start"
-            contentContainerStyle={{ gap: spacing.md, paddingRight: spacing.lg, paddingTop: spacing.md }}
-          >
-            {briefArticles.map((article, index) => (
-              <BriefCard key={article.id} article={article} index={index} total={briefArticles.length} width={briefWidth} />
-            ))}
-          </ScrollView>
-        </View>
-      )}
+      {/* Explore AI: a box for everything inside the app */}
+      <View style={{ marginTop: spacing.lg }}>
+        <AppText variant="heading" style={{ marginBottom: spacing.sm }}>Explore AI</AppText>
+        <ExploreGrid />
+      </View>
 
       {/* For You (personalized) or onboarding banner */}
       {hasInterests ? (
@@ -295,18 +234,6 @@ export function HomeScreen() {
         </View>
       ) : null}
 
-      {/* Trending topics */}
-      {trendingTopics.data && trendingTopics.data.length > 0 && (
-        <View style={{ marginTop: spacing.lg }}>
-          <SectionHeader title="Trending topics" />
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: spacing.sm, paddingRight: spacing.lg, paddingTop: spacing.sm }}>
-            {trendingTopics.data.map((topic) => (
-              <Chip key={topic.id} label={topic.name} icon="trending-up-outline" onPress={() => router.push(routes.topic(topic.id))} />
-            ))}
-          </ScrollView>
-        </View>
-      )}
-
       {/* Featured */}
       {featured.data && featured.data.length > 0 && (
         <View style={{ marginTop: spacing.lg }}>
@@ -332,7 +259,7 @@ export function HomeScreen() {
 
       {/* Models */}
       <View style={{ marginTop: spacing.xl }}>
-        <SectionHeader title="Trending models" actionLabel="See all" onAction={() => router.push('/explore/models')} />
+        <SectionHeader title="Popular AI models" actionLabel="See all" onAction={() => router.push('/explore/models')} />
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: spacing.md, paddingRight: spacing.lg, paddingTop: spacing.md }}>
           {trendingModels.data?.map((model) => (
             <ModelMiniCard key={model.id} model={model} />
@@ -342,7 +269,7 @@ export function HomeScreen() {
 
       {/* Tools */}
       <View style={{ marginTop: spacing.xl }}>
-        <SectionHeader title="AI tools to know" actionLabel="See all" onAction={() => router.push('/explore/tools')} />
+        <SectionHeader title="Handy AI tools" actionLabel="See all" onAction={() => router.push('/explore/tools')} />
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: spacing.md, paddingRight: spacing.lg, paddingTop: spacing.md }}>
           {trendingTools.data?.map((tool) => (
             <ToolMiniCard key={tool.id} tool={tool} />
@@ -366,7 +293,7 @@ export function HomeScreen() {
 
       {/* Recommended workflows */}
       <View style={{ marginTop: spacing.xl }}>
-        <SectionHeader title="Recommended workflows" actionLabel="See all" onAction={() => router.push('/explore/workflows')} />
+        <SectionHeader title="Step-by-step AI guides" actionLabel="See all" onAction={() => router.push('/explore/workflows')} />
         {workflows.data?.slice(0, 2).map((workflow) => (
           <ListRow
             key={workflow.id}

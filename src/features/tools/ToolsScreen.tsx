@@ -20,7 +20,7 @@ function ToolCard({ tool }: { tool: AITool }) {
   const { colors, spacing } = useTheme();
   return (
     <Card onPress={() => router.push(routes.tool(tool.id))}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: spacing.sm, rowGap: 4 }}>
         <AppText variant="heading" numberOfLines={1} style={{ flexShrink: 1 }}>{tool.name}</AppText>
         <Badge label={PRICING_MODEL_LABELS[tool.pricingModel]} tone={toneForPricing(tool.pricingModel)} />
       </View>

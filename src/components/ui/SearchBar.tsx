@@ -31,7 +31,7 @@ export function SearchBar({ value, onChangeText, placeholder = 'Search…', auto
         returnKeyType="search"
         autoFocus={autoFocus}
         onSubmitEditing={onSubmitEditing}
-        style={{ flex: 1, color: colors.textPrimary, fontSize: 15, paddingVertical: 0 }}
+        style={{ flex: 1, color: colors.textPrimary, fontSize: 16, paddingVertical: 0 }}
       />
       {value.length > 0 && (
         <Pressable onPress={() => onChangeText('')} hitSlop={8} accessibilityLabel="Clear search">

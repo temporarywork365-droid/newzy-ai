@@ -42,7 +42,7 @@ function AuthField({
         style={{
           backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border,
           borderRadius: radius.md, paddingHorizontal: spacing.md, height: 48,
-          color: colors.textPrimary, fontSize: 15,
+          color: colors.textPrimary, fontSize: 16,
         }}
       />
     </View>

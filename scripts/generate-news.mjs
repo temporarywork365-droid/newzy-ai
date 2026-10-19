@@ -48,6 +48,9 @@ const MAX_CANDIDATES = 40; // max items sent to Gemini per run
 const DATA_DIR = path.resolve('data/live');
 const ARTICLES_PATH = path.join(DATA_DIR, 'articles.json');
 const DIGEST_PATH = path.join(DATA_DIR, 'digest.json');
+// Links this script has already looked at (shown or passed over). Keeps every story from being sent to Gemini twice.
+const SEEN_PATH = path.join(DATA_DIR, 'seen.json');
+const SEEN_KEEP_DAYS = 7;
 
 const MAX_STORED_ARTICLES = 80; // rolling window
 const MAX_ARTICLE_AGE_DAYS = 30; // drop anything older than this
@@ -394,15 +397,30 @@ function dedupeKey(title) {
   return slugify(title);
 }
 
+/** seen.json is { link: firstSeenIso }. Drops entries older than SEEN_KEEP_DAYS and ignores a broken file. */
+function pruneSeen(stored) {
+  const seen = {};
+  if (!stored || typeof stored !== 'object' || Array.isArray(stored)) return seen;
+  for (const [link, iso] of Object.entries(stored)) {
+    if (typeof iso === 'string' && daysOld(iso) <= SEEN_KEEP_DAYS) seen[link] = iso;
+  }
+  return seen;
+}
+
 /* ----------------------------------- Main ----------------------------------- */
 
 async function main() {
   await mkdir(DATA_DIR, { recursive: true });
 
   // Clean up articles saved by earlier runs: drop "Hindi" that is really English letters.
-  const existing = (await readJsonSafe(ARTICLES_PATH, [])).map((a) => ({ ...a, ...cleanHindi(a) }));
+  const storedArticles = await readJsonSafe(ARTICLES_PATH, []);
+  const existing = storedArticles.map((a) => ({ ...a, ...cleanHindi(a) }));
+  const cleanedStored = JSON.stringify(existing) !== JSON.stringify(storedArticles);
   const existingByKey = new Map(existing.map((a) => [dedupeKey(a.title), a]));
-  const knownUrls = new Set(existing.map((a) => a.sourceUrl).filter(Boolean));
+  // Stories already shown, or already looked at and passed over by an earlier run: never send them to Gemini again.
+  const seenStored = await readJsonSafe(SEEN_PATH, {});
+  const seen = pruneSeen(seenStored);
+  const knownUrls = new Set([...existing.map((a) => a.sourceUrl).filter(Boolean), ...Object.keys(seen)]);
 
   console.log('Reading RSS feeds...');
   const { items: candidates, okFeeds } = await collectFeedItems(knownUrls);
@@ -436,10 +454,22 @@ async function main() {
       knownUrls.add(item.link);
       added += 1;
     }
+    // Gemini answered, so every story it was shown counts as looked at (picked or not).
+    const nowIso = new Date().toISOString();
+    for (const candidate of candidates) seen[candidate.link] = nowIso;
   } else {
     console.log('No new items since the last run. Skipping the Gemini call.');
   }
   console.log(`Added ${added} new article(s).`);
+
+  if (JSON.stringify(seen) !== JSON.stringify(seenStored)) {
+    await writeFile(SEEN_PATH, JSON.stringify(seen, null, 2) + '\n');
+  }
+  // Runs happen every 15 minutes. With nothing new, leave the data files alone so no pointless commit is made.
+  if (added === 0 && !cleanedStored) {
+    console.log('Nothing new: articles.json and digest.json left untouched.');
+    return;
+  }
 
   // Recompute trending score for every stored article (recency decays over time) and drop stale ones.
   const merged = [...existingByKey.values()]
@@ -474,10 +504,10 @@ async function main() {
 
   const digest = {
     date: new Date().toISOString(),
-    headline: topStory ? topStory.title.split(' ').slice(0, 6).join(' ') : 'AI news today',
-    summary: topStory
-      ? `${topStory.dek} ${merged[1] ? merged[1].dek : ''}`.trim()
-      : 'No fresh stories were found in the last run.',
+    // Full headline and the story's own summary (two sentences). Gluing two different stories together
+    // used to produce sentences that made no sense.
+    headline: topStory ? topStory.title : 'AI news today',
+    summary: topStory ? topStory.summary : 'No fresh stories were found in the last run.',
     topStoryId: topStory ? topStory.id : '',
     stats: topCategories.length > 0
       ? topCategories.map(([label, value]) => ({ label, value: String(value) }))

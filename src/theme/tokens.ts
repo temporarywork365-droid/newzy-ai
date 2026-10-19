@@ -1,19 +1,22 @@
 import type { TextStyle } from 'react-native';
 
 export type ThemeMode = 'system' | 'light' | 'dark';
-export type Tone = 'neutral' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
+export type Tone = 'neutral' | 'accent' | 'success' | 'warning' | 'danger' | 'info' | 'violet' | 'rose' | 'orange';
 
 export const spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const;
-export const radius = { sm: 8, md: 12, lg: 16, xl: 24, full: 999 } as const;
+export const radius = { sm: 10, md: 14, lg: 20, xl: 28, full: 999 } as const;
 export const borderWidth = { none: 0, hairline: 1, thick: 2 } as const;
 
+/* Text scale: one step bigger than before so small text is easy to read on a phone.
+   "reading" is for long paragraphs (article text): larger and with more space between lines. */
 export const typography = {
-  display: { fontSize: 28, lineHeight: 34, fontWeight: '700' },
-  title:    { fontSize: 21, lineHeight: 27, fontWeight: '700' },
-  heading:  { fontSize: 17, lineHeight: 23, fontWeight: '600' },
-  body:     { fontSize: 15, lineHeight: 22, fontWeight: '400' },
-  small:    { fontSize: 13, lineHeight: 19, fontWeight: '400' },
-  caption:  { fontSize: 11, lineHeight: 15, fontWeight: '600' },
+  display: { fontSize: 26, lineHeight: 33, fontWeight: '700' },
+  title:    { fontSize: 22, lineHeight: 29, fontWeight: '700' },
+  heading:  { fontSize: 18, lineHeight: 25, fontWeight: '600' },
+  reading:  { fontSize: 17, lineHeight: 28, fontWeight: '400' },
+  body:     { fontSize: 16, lineHeight: 24, fontWeight: '400' },
+  small:    { fontSize: 14, lineHeight: 20, fontWeight: '400' },
+  caption:  { fontSize: 12, lineHeight: 16, fontWeight: '600' },
 } as const satisfies Record<string, TextStyle>;
 
 /** Icon scale — every icon in the app uses one of these sizes. */

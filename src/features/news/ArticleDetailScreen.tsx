@@ -67,7 +67,7 @@ export function ArticleDetailScreen({ id }: { id: string }) {
         </View>
       ) : null}
       <AppText variant="display" hi={text.isHindi} style={{ marginTop: spacing.md }}>{text.title}</AppText>
-      <AppText variant="body" color="secondary" hi={text.isHindi} style={{ marginTop: spacing.sm }}>{text.summary}</AppText>
+      <AppText variant="reading" color="secondary" hi={text.isHindi} style={{ marginTop: spacing.sm }}>{text.summary}</AppText>
       {text.isHindi ? (
         <AppText variant="caption" color="tertiary" style={{ marginTop: spacing.xs }}>
           हिंदी सारांश AI ने बनाया है। पूरा विवरण नीचे English में है।
@@ -91,7 +91,7 @@ export function ArticleDetailScreen({ id }: { id: string }) {
 
       {/* FACTS — What happened? */}
       <Section title="What happened?">
-        <AppText variant="body">{article.whatHappened}</AppText>
+        <AppText variant="reading">{article.whatHappened}</AppText>
       </Section>
 
       {/* FACTS — Important details */}
@@ -108,7 +108,7 @@ export function ArticleDetailScreen({ id }: { id: string }) {
               Analysis · Newzy AI
             </AppText>
           </View>
-          <AppText variant="body" color="secondary" hi={text.isHindi}>{text.whyItMatters}</AppText>
+          <AppText variant="reading" color="secondary" hi={text.isHindi}>{text.whyItMatters}</AppText>
         </View>
       </Section>
 

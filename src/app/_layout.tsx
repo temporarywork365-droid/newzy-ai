@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppSplash } from '@/components/app/AppSplash';
+import { LiveNewsRefresher } from '@/components/app/LiveNewsRefresher';
 import { OnboardingScreen } from '@/features/onboarding/OnboardingScreen';
 import { useAuthStore } from '@/store/authStore';
 import { usePreferencesStore } from '@/store/preferencesStore';
@@ -67,6 +68,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
+          <LiveNewsRefresher />
           <ThemeProvider>
             <RootGate />
           </ThemeProvider>

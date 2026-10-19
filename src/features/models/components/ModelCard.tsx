@@ -16,7 +16,7 @@ export function ModelCard({ model }: { model: AIModel }) {
   return (
     <Card onPress={() => router.push(routes.model(model.id))}>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm, flexShrink: 1 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: spacing.sm, rowGap: 4, flexShrink: 1 }}>
           <AppText variant="heading" numberOfLines={1} style={{ flexShrink: 1 }}>{model.name}</AppText>
           <Badge label={MODEL_CATEGORY_LABELS[model.category]} tone={toneForModelCategory(model.category)} />
         </View>

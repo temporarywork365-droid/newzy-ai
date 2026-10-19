@@ -15,7 +15,7 @@ export function ModelMiniCard({ model }: { model: AIModel }) {
   const { colors, spacing } = useTheme();
   return (
     <Card onPress={() => router.push(routes.model(model.id))} style={{ width: 230 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: spacing.sm, rowGap: 4 }}>
         <AppText variant="heading" numberOfLines={1} style={{ flexShrink: 1 }}>{model.name}</AppText>
         <Badge label={MODEL_CATEGORY_LABELS[model.category]} tone={toneForModelCategory(model.category)} />
       </View>
