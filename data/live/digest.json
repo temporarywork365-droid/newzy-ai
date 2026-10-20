@@ -1,12 +1,12 @@
 {
-  "date": "2026-10-20T10:17:53.807Z",
-  "headline": "Goodfire researcher sparks major debate with neural network claims",
-  "summary": "Goodfire researcher Nick Cammarata published a 26,000-word blog post presenting a fresh perspective on the nature of neural networks. The explosive claims have sparked widespread speculation and celebration across the artificial intelligence community.",
-  "topStoryId": "goodfire-researcher-sparks-major-debate-with-neural-network-",
+  "date": "2026-10-20T15:10:06.312Z",
+  "headline": "US Government Bans DeepSeek AI in Federal Agencies",
+  "summary": "The United States government has directed federal civilian agencies to eliminate DeepSeek AI systems from their operations. This directive includes third-party services that rely on DeepSeek technology.",
+  "topStoryId": "us-government-bans-deepseek-ai-in-federal-agencies",
   "stats": [
     {
       "label": "industry",
-      "value": "7"
+      "value": "8"
     },
     {
       "label": "companies",
@@ -14,7 +14,7 @@
     },
     {
       "label": "robotics",
-      "value": "3"
+      "value": "4"
     }
   ]
 }
