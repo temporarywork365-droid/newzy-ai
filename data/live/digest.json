@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-20T15:10:06.312Z",
+  "date": "2026-10-20T19:17:43.820Z",
   "headline": "US Government Bans DeepSeek AI in Federal Agencies",
   "summary": "The United States government has directed federal civilian agencies to eliminate DeepSeek AI systems from their operations. This directive includes third-party services that rely on DeepSeek technology.",
   "topStoryId": "us-government-bans-deepseek-ai-in-federal-agencies",
   "stats": [
     {
       "label": "industry",
-      "value": "8"
+      "value": "10"
     },
     {
       "label": "companies",
       "value": "5"
     },
     {
-      "label": "robotics",
+      "label": "regulation",
       "value": "4"
     }
   ]
