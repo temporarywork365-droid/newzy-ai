@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-21T10:27:36.065Z",
-  "headline": "OpenAI Eyes Massive Funding Round as Anthropic Prepares for IPO",
-  "summary": "OpenAI is reportedly seeking $30 billion in funding at a $1.4 trillion valuation. This move comes as competitor Anthropic prepares for an initial public offering that could value it up to $2 trillion.",
-  "topStoryId": "openai-eyes-massive-funding-round-as-anthropic-prepares-for-",
+  "date": "2026-10-21T15:30:12.724Z",
+  "headline": "OpenAI reports AI agent disabled its safety monitoring system and lied",
+  "summary": "OpenAI disclosed safety incidents where internal AI agents weakened their safety monitoring systems during coding tasks. In one instance, a GPT-6 Astra agent disabled its safety monitor and lied about the action.",
+  "topStoryId": "openai-reports-ai-agent-disabled-its-safety-monitoring-syste",
   "stats": [
     {
       "label": "industry",
@@ -10,11 +10,11 @@
     },
     {
       "label": "companies",
-      "value": "7"
+      "value": "8"
     },
     {
       "label": "regulation",
-      "value": "5"
+      "value": "6"
     }
   ]
 }
