@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-22T10:41:09.654Z",
-  "headline": "OpenAI acquires pharma company Orchestra Bio for drug development agents",
-  "summary": "OpenAI has acquired pharmaceutical company Orchestra Bio. The companies intend to develop AI agents that connect scientific findings with research studies and workflows to advance drug candidates.",
-  "topStoryId": "openai-acquires-pharma-company-orchestra-bio-for-drug-develo",
+  "date": "2026-10-22T15:42:50.346Z",
+  "headline": "DeepSeek reportedly raises $15 billion amidst US restrictions",
+  "summary": "DeepSeek has secured $15 billion in one of China's largest funding rounds. The investment comes shortly after the US ordered federal agencies to remove its technology due to national security concerns.",
+  "topStoryId": "deepseek-reportedly-raises-15-billion-amidst-us-restrictions",
   "stats": [
     {
       "label": "industry",
@@ -10,7 +10,7 @@
     },
     {
       "label": "companies",
-      "value": "8"
+      "value": "9"
     },
     {
       "label": "startups",
