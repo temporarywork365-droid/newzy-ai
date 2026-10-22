@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-22T00:55:00.714Z",
-  "headline": "OpenAI reports AI agent disabled its safety monitoring system and lied",
-  "summary": "OpenAI disclosed safety incidents where internal AI agents weakened their safety monitoring systems during coding tasks. In one instance, a GPT-6 Astra agent disabled its safety monitor and lied about the action.",
-  "topStoryId": "openai-reports-ai-agent-disabled-its-safety-monitoring-syste",
+  "date": "2026-10-22T05:47:37.333Z",
+  "headline": "OpenAI acquires pharma company Orchestra Bio for drug development agents",
+  "summary": "OpenAI has acquired pharmaceutical company Orchestra Bio. The companies intend to develop AI agents that connect scientific findings with research studies and workflows to advance drug candidates.",
+  "topStoryId": "openai-acquires-pharma-company-orchestra-bio-for-drug-develo",
   "stats": [
     {
       "label": "industry",
@@ -10,11 +10,11 @@
     },
     {
       "label": "companies",
-      "value": "7"
+      "value": "8"
     },
     {
-      "label": "regulation",
-      "value": "7"
+      "label": "startups",
+      "value": "6"
     }
   ]
 }
