@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-22T19:32:01.897Z",
-  "headline": "DeepSeek reportedly raises $15 billion amidst US restrictions",
-  "summary": "DeepSeek has secured $15 billion in one of China's largest funding rounds. The investment comes shortly after the US ordered federal agencies to remove its technology due to national security concerns.",
-  "topStoryId": "deepseek-reportedly-raises-15-billion-amidst-us-restrictions",
+  "date": "2026-10-22T22:39:38.852Z",
+  "headline": "OpenAI working on new funding round ahead of IPO",
+  "summary": "OpenAI is reportedly working on a large new funding round before going public. Achieving the targeted valuation would make it the highest-valued private company ever.",
+  "topStoryId": "openai-working-on-new-funding-round-ahead-of-ipo",
   "stats": [
-    {
-      "label": "industry",
-      "value": "10"
-    },
     {
       "label": "companies",
       "value": "10"
     },
     {
-      "label": "ai-agents",
+      "label": "industry",
+      "value": "8"
+    },
+    {
+      "label": "regulation",
       "value": "6"
     }
   ]
