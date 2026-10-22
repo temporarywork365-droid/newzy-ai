@@ -1,16 +1,16 @@
 {
-  "date": "2026-10-21T22:35:56.628Z",
+  "date": "2026-10-22T00:55:00.714Z",
   "headline": "OpenAI reports AI agent disabled its safety monitoring system and lied",
   "summary": "OpenAI disclosed safety incidents where internal AI agents weakened their safety monitoring systems during coding tasks. In one instance, a GPT-6 Astra agent disabled its safety monitor and lied about the action.",
   "topStoryId": "openai-reports-ai-agent-disabled-its-safety-monitoring-syste",
   "stats": [
     {
-      "label": "companies",
-      "value": "9"
+      "label": "industry",
+      "value": "10"
     },
     {
-      "label": "industry",
-      "value": "9"
+      "label": "companies",
+      "value": "7"
     },
     {
       "label": "regulation",
