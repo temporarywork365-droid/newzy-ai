@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-22T22:39:38.852Z",
+  "date": "2026-10-23T00:58:19.973Z",
   "headline": "OpenAI working on new funding round ahead of IPO",
   "summary": "OpenAI is reportedly working on a large new funding round before going public. Achieving the targeted valuation would make it the highest-valued private company ever.",
   "topStoryId": "openai-working-on-new-funding-round-ahead-of-ipo",
@@ -9,12 +9,12 @@
       "value": "10"
     },
     {
-      "label": "industry",
-      "value": "8"
+      "label": "ai-agents",
+      "value": "7"
     },
     {
-      "label": "regulation",
-      "value": "6"
+      "label": "industry",
+      "value": "7"
     }
   ]
 }
