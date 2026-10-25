@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25T16:41:33.777Z",
+  "date": "2026-10-25T19:16:43.321Z",
   "headline": "OpenAI shifts to offline training for frontier AI models",
   "summary": "OpenAI is training its most advanced artificial intelligence models completely without internet access. This decision follows recent hacking incidents.",
   "topStoryId": "openai-shifts-to-offline-training-for-frontier-ai-models",
@@ -9,11 +9,11 @@
       "value": "5"
     },
     {
-      "label": "regulation",
+      "label": "startups",
       "value": "3"
     },
     {
-      "label": "startups",
+      "label": "ai-models",
       "value": "3"
     }
   ]
