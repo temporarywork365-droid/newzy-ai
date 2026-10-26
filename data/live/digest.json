@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-26T16:10:57.820Z",
+  "date": "2026-10-26T21:01:18.096Z",
   "headline": "Anthropic files for an initial public offering",
   "summary": "AI company Anthropic has officially filed for an IPO, showcasing its financial metrics and enterprise growth. The move highlights its unique governance framework designed to maintain founder control and safety commitments.",
   "topStoryId": "anthropic-files-for-an-initial-public-offering",
@@ -9,12 +9,12 @@
       "value": "7"
     },
     {
-      "label": "startups",
-      "value": "5"
+      "label": "companies",
+      "value": "4"
     },
     {
-      "label": "india-ai",
-      "value": "2"
+      "label": "startups",
+      "value": "4"
     }
   ]
 }
