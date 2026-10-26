@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-26T09:16:50.304Z",
-  "headline": "SpaceX Secures $40 Billion GPU Debt Deal As Musk Warns Neoclouds",
-  "summary": "Elon Musk announced that SpaceX has closed a $40 billion debt deal for artificial intelligence computing. He also warned that most neocloud providers will not survive the market.",
-  "topStoryId": "spacex-secures-40-billion-gpu-debt-deal-as-musk-warns-neoclo",
+  "date": "2026-10-26T16:10:57.820Z",
+  "headline": "Anthropic files for an initial public offering",
+  "summary": "AI company Anthropic has officially filed for an IPO, showcasing its financial metrics and enterprise growth. The move highlights its unique governance framework designed to maintain founder control and safety commitments.",
+  "topStoryId": "anthropic-files-for-an-initial-public-offering",
   "stats": [
     {
       "label": "industry",
-      "value": "6"
+      "value": "7"
     },
     {
       "label": "startups",
-      "value": "2"
+      "value": "5"
     },
     {
-      "label": "regulation",
+      "label": "india-ai",
       "value": "2"
     }
   ]
