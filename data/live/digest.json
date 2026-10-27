@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-27T10:34:53.704Z",
+  "date": "2026-10-27T16:02:20.942Z",
   "headline": "Anthropic posts significant Q2 2026 profit as enterprise adoption surges",
   "summary": "Anthropic reported a profit of $974 million in Q2 2026. The company experienced a 1,368% year-on-year revenue increase, largely driven by enterprise adoption and Claude Code.",
   "topStoryId": "anthropic-posts-significant-q2-2026-profit-as-enterprise-ado",
@@ -9,12 +9,12 @@
       "value": "7"
     },
     {
-      "label": "industry",
-      "value": "6"
+      "label": "startups",
+      "value": "5"
     },
     {
       "label": "india-ai",
-      "value": "4"
+      "value": "5"
     }
   ]
 }
