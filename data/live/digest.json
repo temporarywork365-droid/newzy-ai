@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-27T16:02:20.942Z",
-  "headline": "Anthropic posts significant Q2 2026 profit as enterprise adoption surges",
-  "summary": "Anthropic reported a profit of $974 million in Q2 2026. The company experienced a 1,368% year-on-year revenue increase, largely driven by enterprise adoption and Claude Code.",
-  "topStoryId": "anthropic-posts-significant-q2-2026-profit-as-enterprise-ado",
+  "date": "2026-10-27T20:34:23.975Z",
+  "headline": "Google announces Genie 4 world model with interactive features",
+  "summary": "Google has announced the Genie 4 world model, designed to build interactive experiences using AI. The updated model introduces real-time natural language prompt updates, audio generation, and utilizes Gemini 3.8 Flash.",
+  "topStoryId": "google-announces-genie-4-world-model-with-interactive-featur",
   "stats": [
     {
       "label": "companies",
-      "value": "7"
+      "value": "8"
     },
     {
       "label": "startups",
-      "value": "5"
+      "value": "6"
     },
     {
-      "label": "india-ai",
+      "label": "ai-tools",
       "value": "5"
     }
   ]
