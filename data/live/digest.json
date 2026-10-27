@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-27T05:13:30.583Z",
-  "headline": "OpenAI Introduces GPT-6.1 Terra With Cheaper API Access",
-  "summary": "OpenAI has officially launched GPT-6.1 Terra, integrating visual reasoning, computer use, and coding capabilities. The model also comes with API prices set 50 percent lower than previous versions.",
-  "topStoryId": "openai-introduces-gpt-6-1-terra-with-cheaper-api-access",
+  "date": "2026-10-27T10:34:53.704Z",
+  "headline": "Anthropic posts significant Q2 2026 profit as enterprise adoption surges",
+  "summary": "Anthropic reported a profit of $974 million in Q2 2026. The company experienced a 1,368% year-on-year revenue increase, largely driven by enterprise adoption and Claude Code.",
+  "topStoryId": "anthropic-posts-significant-q2-2026-profit-as-enterprise-ado",
   "stats": [
+    {
+      "label": "companies",
+      "value": "7"
+    },
     {
       "label": "industry",
       "value": "6"
     },
     {
-      "label": "companies",
-      "value": "4"
-    },
-    {
-      "label": "startups",
+      "label": "india-ai",
       "value": "4"
     }
   ]
