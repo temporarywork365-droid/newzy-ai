@@ -1,12 +1,12 @@
 {
-  "date": "2026-10-27T00:18:19.429Z",
-  "headline": "Anthropic files for an initial public offering",
-  "summary": "AI company Anthropic has officially filed for an IPO, showcasing its financial metrics and enterprise growth. The move highlights its unique governance framework designed to maintain founder control and safety commitments.",
-  "topStoryId": "anthropic-files-for-an-initial-public-offering",
+  "date": "2026-10-27T05:13:30.583Z",
+  "headline": "OpenAI Introduces GPT-6.1 Terra With Cheaper API Access",
+  "summary": "OpenAI has officially launched GPT-6.1 Terra, integrating visual reasoning, computer use, and coding capabilities. The model also comes with API prices set 50 percent lower than previous versions.",
+  "topStoryId": "openai-introduces-gpt-6-1-terra-with-cheaper-api-access",
   "stats": [
     {
       "label": "industry",
-      "value": "7"
+      "value": "6"
     },
     {
       "label": "companies",
