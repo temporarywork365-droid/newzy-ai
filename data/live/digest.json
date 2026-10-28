@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-28T05:22:18.206Z",
+  "date": "2026-10-28T11:29:52.380Z",
   "headline": "OpenAI Eyes Google Chips to Expand Compute",
   "summary": "OpenAI plans to acquire AI chips from Google. This move could decrease its dependence on NVIDIA for training and running models.",
   "topStoryId": "openai-eyes-google-chips-to-expand-compute",
@@ -13,7 +13,7 @@
       "value": "6"
     },
     {
-      "label": "ai-models",
+      "label": "ai-tools",
       "value": "5"
     }
   ]
