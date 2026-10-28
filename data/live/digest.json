@@ -1,20 +1,20 @@
 {
-  "date": "2026-10-28T11:29:52.380Z",
-  "headline": "OpenAI Eyes Google Chips to Expand Compute",
-  "summary": "OpenAI plans to acquire AI chips from Google. This move could decrease its dependence on NVIDIA for training and running models.",
-  "topStoryId": "openai-eyes-google-chips-to-expand-compute",
+  "date": "2026-10-28T17:16:38.006Z",
+  "headline": "Anthropic posts significant Q2 2026 profit as enterprise adoption surges",
+  "summary": "Anthropic reported a profit of $974 million in Q2 2026. The company experienced a 1,368% year-on-year revenue increase, largely driven by enterprise adoption and Claude Code.",
+  "topStoryId": "anthropic-posts-significant-q2-2026-profit-as-enterprise-ado",
   "stats": [
     {
       "label": "companies",
-      "value": "11"
-    },
-    {
-      "label": "startups",
-      "value": "6"
+      "value": "8"
     },
     {
       "label": "ai-tools",
-      "value": "5"
+      "value": "6"
+    },
+    {
+      "label": "india-ai",
+      "value": "6"
     }
   ]
 }
