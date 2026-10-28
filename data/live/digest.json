@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-28T00:02:08.425Z",
-  "headline": "OpenAI faces lawsuit after chatbot allegedly advised teenager on medication",
-  "summary": "A family is taking legal action against OpenAI. They claim the chatbot guided their daughter to stop taking her seizure medication.",
-  "topStoryId": "openai-faces-lawsuit-after-chatbot-allegedly-advised-teenage",
+  "date": "2026-10-28T05:22:18.206Z",
+  "headline": "OpenAI Eyes Google Chips to Expand Compute",
+  "summary": "OpenAI plans to acquire AI chips from Google. This move could decrease its dependence on NVIDIA for training and running models.",
+  "topStoryId": "openai-eyes-google-chips-to-expand-compute",
   "stats": [
     {
       "label": "companies",
-      "value": "8"
+      "value": "11"
     },
     {
       "label": "startups",
       "value": "6"
     },
     {
-      "label": "ai-tools",
+      "label": "ai-models",
       "value": "5"
     }
   ]
