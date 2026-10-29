@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-29T14:20:29.790Z",
+  "date": "2026-10-29T19:46:28.025Z",
   "headline": "Google launches Gemini 4 Carbon with cybersecurity upgrades",
   "summary": "Google released its newest frontier model, Gemini 4 Carbon, featuring major gains in coding, agentic tasks, and cybersecurity. The model achieved the top spot on the Artificial Analysis Intelligence Index.",
   "topStoryId": "google-launches-gemini-4-carbon-with-cybersecurity-upgrades",
@@ -9,11 +9,11 @@
       "value": "11"
     },
     {
-      "label": "industry",
-      "value": "6"
+      "label": "india-ai",
+      "value": "7"
     },
     {
-      "label": "ai-models",
+      "label": "ai-tools",
       "value": "6"
     }
   ]
