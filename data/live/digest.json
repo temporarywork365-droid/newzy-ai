@@ -1,12 +1,12 @@
 {
-  "date": "2026-10-31T00:29:10.826Z",
+  "date": "2026-10-31T06:07:12.543Z",
   "headline": "Google's satellite AI system successfully sends its first response from space",
   "summary": "Google has activated an AI chip-equipped satellite in space. The orbiting system used its Gemma 4 model to write and transmit a space-themed haiku back to Earth.",
   "topStoryId": "google-s-satellite-ai-system-successfully-sends-its-first-re",
   "stats": [
     {
       "label": "industry",
-      "value": "7"
+      "value": "6"
     },
     {
       "label": "regulation",
@@ -14,7 +14,7 @@
     },
     {
       "label": "companies",
-      "value": "6"
+      "value": "5"
     }
   ]
 }
