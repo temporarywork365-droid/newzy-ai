@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-02T12:53:49.161Z",
-  "headline": "OpenAI Secures Four Strategic Agreements in Abu Dhabi",
-  "summary": "OpenAI has entered into four different agreements covering government, energy, and investment sectors in Abu Dhabi. As part of this initiative, ADNOC is implementing GPT models to assist with operational decision-making.",
-  "topStoryId": "openai-secures-four-strategic-agreements-in-abu-dhabi",
+  "date": "2026-11-02T22:11:18.286Z",
+  "headline": "42AI launches with funding and a predictive world model",
+  "summary": "Startup 42AI has exited stealth mode with $62.5 million in funding. The company has developed a world model designed to predict human behavior even in novel situations.",
+  "topStoryId": "42ai-launches-with-funding-and-a-predictive-world-model",
   "stats": [
     {
-      "label": "companies",
+      "label": "ai-coding",
       "value": "3"
     },
     {
-      "label": "india-ai",
+      "label": "companies",
       "value": "2"
     },
     {
       "label": "research",
-      "value": "1"
+      "value": "2"
     }
   ]
 }
