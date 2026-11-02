@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-01T23:54:39.831Z",
-  "headline": "Google's satellite AI system successfully sends its first response from space",
-  "summary": "Google has activated an AI chip-equipped satellite in space. The orbiting system used its Gemma 4 model to write and transmit a space-themed haiku back to Earth.",
-  "topStoryId": "google-s-satellite-ai-system-successfully-sends-its-first-re",
+  "date": "2026-11-02T12:53:49.161Z",
+  "headline": "OpenAI Secures Four Strategic Agreements in Abu Dhabi",
+  "summary": "OpenAI has entered into four different agreements covering government, energy, and investment sectors in Abu Dhabi. As part of this initiative, ADNOC is implementing GPT models to assist with operational decision-making.",
+  "topStoryId": "openai-secures-four-strategic-agreements-in-abu-dhabi",
   "stats": [
     {
       "label": "companies",
@@ -13,7 +13,7 @@
       "value": "2"
     },
     {
-      "label": "industry",
+      "label": "research",
       "value": "1"
     }
   ]
