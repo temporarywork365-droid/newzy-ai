@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-03T18:27:57.469Z",
-  "headline": "Anthropic warns of approaching self-building AI capabilities",
-  "summary": "Anthropic has cautioned that it is nearing recursive self-improvement capability, which allows AI to train itself. Safety advocates view this milestone as a potential tipping point.",
-  "topStoryId": "anthropic-warns-of-approaching-self-building-ai-capabilities",
+  "date": "2026-11-03T23:34:32.888Z",
+  "headline": "OpenAI says ChatGPT search volume reaches 20 percent of Google",
+  "summary": "OpenAI announced that the volume of search queries run through ChatGPT has reached 20 percent of Google's search volume. The milestone was shared by OpenAI's consumer product lead at a press event.",
+  "topStoryId": "openai-says-chatgpt-search-volume-reaches-20-percent-of-goog",
   "stats": [
     {
-      "label": "companies",
+      "label": "ai-tools",
+      "value": "6"
+    },
+    {
+      "label": "startups",
       "value": "5"
     },
     {
       "label": "research",
       "value": "5"
-    },
-    {
-      "label": "regulation",
-      "value": "4"
     }
   ]
 }
