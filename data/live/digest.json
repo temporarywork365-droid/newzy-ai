@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-03T03:28:23.682Z",
+  "date": "2026-11-03T11:13:32.695Z",
   "headline": "Anthropic warns of approaching self-building AI capabilities",
   "summary": "Anthropic has cautioned that it is nearing recursive self-improvement capability, which allows AI to train itself. Safety advocates view this milestone as a potential tipping point.",
   "topStoryId": "anthropic-warns-of-approaching-self-building-ai-capabilities",
   "stats": [
     {
-      "label": "companies",
-      "value": "3"
-    },
-    {
       "label": "research",
-      "value": "3"
+      "value": "5"
     },
     {
-      "label": "ai-coding",
+      "label": "companies",
+      "value": "4"
+    },
+    {
+      "label": "startups",
       "value": "3"
     }
   ]
