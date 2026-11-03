@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-02T22:11:18.286Z",
-  "headline": "42AI launches with funding and a predictive world model",
-  "summary": "Startup 42AI has exited stealth mode with $62.5 million in funding. The company has developed a world model designed to predict human behavior even in novel situations.",
-  "topStoryId": "42ai-launches-with-funding-and-a-predictive-world-model",
+  "date": "2026-11-03T03:28:23.682Z",
+  "headline": "Anthropic warns of approaching self-building AI capabilities",
+  "summary": "Anthropic has cautioned that it is nearing recursive self-improvement capability, which allows AI to train itself. Safety advocates view this milestone as a potential tipping point.",
+  "topStoryId": "anthropic-warns-of-approaching-self-building-ai-capabilities",
   "stats": [
     {
-      "label": "ai-coding",
+      "label": "companies",
       "value": "3"
     },
     {
-      "label": "companies",
-      "value": "2"
+      "label": "research",
+      "value": "3"
     },
     {
-      "label": "research",
-      "value": "2"
+      "label": "ai-coding",
+      "value": "3"
     }
   ]
 }
