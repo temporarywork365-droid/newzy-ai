@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-04T18:52:22.397Z",
+  "date": "2026-11-04T23:57:17.815Z",
   "headline": "OpenAI says ChatGPT search volume reaches 20 percent of Google",
   "summary": "OpenAI announced that the volume of search queries run through ChatGPT has reached 20 percent of Google's search volume. The milestone was shared by OpenAI's consumer product lead at a press event.",
   "topStoryId": "openai-says-chatgpt-search-volume-reaches-20-percent-of-goog",
   "stats": [
     {
       "label": "ai-tools",
-      "value": "6"
+      "value": "8"
     },
     {
       "label": "companies",
-      "value": "5"
+      "value": "6"
     },
     {
-      "label": "regulation",
-      "value": "4"
+      "label": "ai-agents",
+      "value": "5"
     }
   ]
 }
