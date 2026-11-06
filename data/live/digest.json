@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-06T15:41:56.666Z",
+  "date": "2026-11-06T21:05:12.739Z",
   "headline": "OpenAI releases GPT-6 Cyber cybersecurity model",
   "summary": "OpenAI has introduced GPT-6 Cyber, its latest cybersecurity AI model. The company states the model is better at finding vulnerabilities while reducing rogue hacking attempts.",
   "topStoryId": "openai-releases-gpt-6-cyber-cybersecurity-model",
@@ -9,12 +9,12 @@
       "value": "5"
     },
     {
-      "label": "ai-tools",
+      "label": "industry",
       "value": "4"
     },
     {
-      "label": "startups",
-      "value": "3"
+      "label": "companies",
+      "value": "4"
     }
   ]
 }
