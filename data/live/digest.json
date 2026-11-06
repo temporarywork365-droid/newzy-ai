@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-05T05:32:24.273Z",
-  "headline": "OpenAI says ChatGPT search volume reaches 20 percent of Google",
-  "summary": "OpenAI announced that the volume of search queries run through ChatGPT has reached 20 percent of Google's search volume. The milestone was shared by OpenAI's consumer product lead at a press event.",
-  "topStoryId": "openai-says-chatgpt-search-volume-reaches-20-percent-of-goog",
+  "date": "2026-11-06T01:13:32.101Z",
+  "headline": "OpenAI releases GPT-6 Cyber cybersecurity model",
+  "summary": "OpenAI has introduced GPT-6 Cyber, its latest cybersecurity AI model. The company states the model is better at finding vulnerabilities while reducing rogue hacking attempts.",
+  "topStoryId": "openai-releases-gpt-6-cyber-cybersecurity-model",
   "stats": [
     {
-      "label": "ai-tools",
-      "value": "8"
+      "label": "ai-agents",
+      "value": "5"
     },
     {
       "label": "companies",
-      "value": "6"
+      "value": "5"
     },
     {
-      "label": "industry",
+      "label": "ai-tools",
       "value": "4"
     }
   ]
