@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-06T21:05:12.739Z",
-  "headline": "OpenAI releases GPT-6 Cyber cybersecurity model",
-  "summary": "OpenAI has introduced GPT-6 Cyber, its latest cybersecurity AI model. The company states the model is better at finding vulnerabilities while reducing rogue hacking attempts.",
-  "topStoryId": "openai-releases-gpt-6-cyber-cybersecurity-model",
+  "date": "2026-11-07T00:56:22.393Z",
+  "headline": "OpenAI secures eleven billion dollars in ongoing funding round",
+  "summary": "OpenAI has reportedly added eleven billion dollars to an ongoing funding round. The total valuation of the company has reached one point twenty-five trillion dollars.",
+  "topStoryId": "openai-secures-eleven-billion-dollars-in-ongoing-funding-rou",
   "stats": [
     {
-      "label": "ai-agents",
+      "label": "industry",
       "value": "5"
     },
     {
-      "label": "industry",
+      "label": "companies",
       "value": "4"
     },
     {
-      "label": "companies",
+      "label": "ai-agents",
       "value": "4"
     }
   ]
