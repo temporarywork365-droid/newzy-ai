@@ -1,9 +1,13 @@
 {
-  "date": "2026-11-07T18:20:40.737Z",
+  "date": "2026-11-07T22:11:51.158Z",
   "headline": "OpenAI reaches $1.25 trillion valuation in fresh funding round",
   "summary": "OpenAI has achieved a $1.25 trillion valuation following a new funding round that brought in $11 billion. Meanwhile, competitor Anthropic is moving closer toward its initial public offering.",
   "topStoryId": "openai-reaches-1-25-trillion-valuation-in-fresh-funding-roun",
   "stats": [
+    {
+      "label": "industry",
+      "value": "4"
+    },
     {
       "label": "regulation",
       "value": "4"
@@ -11,10 +15,6 @@
     {
       "label": "ai-agents",
       "value": "4"
-    },
-    {
-      "label": "industry",
-      "value": "3"
     }
   ]
 }
