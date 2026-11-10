@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-09T19:49:46.890Z",
-  "headline": "Anthropic unveils new Claude Fable and Mythos 5.2 models",
-  "summary": "Anthropic has launched two new models, Claude Fable 5.2 and Claude Mythos 5.2. These models are designed to handle demanding technical challenges while offering improved speed.",
-  "topStoryId": "anthropic-unveils-new-claude-fable-and-mythos-5-2-models",
+  "date": "2026-11-10T02:34:28.582Z",
+  "headline": "Anthropic Moves Forward With Initial Public Offering Plans",
+  "summary": "Anthropic is reportedly proceeding with its public offering plans. The company is expected to outline its valuation range soon.",
+  "topStoryId": "anthropic-moves-forward-with-initial-public-offering-plans",
   "stats": [
     {
+      "label": "industry",
+      "value": "4"
+    },
+    {
       "label": "companies",
-      "value": "3"
+      "value": "4"
     },
     {
       "label": "india-ai",
-      "value": "3"
-    },
-    {
-      "label": "industry",
       "value": "3"
     }
   ]
