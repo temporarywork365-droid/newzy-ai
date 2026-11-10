@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-10T10:27:15.198Z",
-  "headline": "Anthropic Moves Forward With Initial Public Offering Plans",
-  "summary": "Anthropic is reportedly proceeding with its public offering plans. The company is expected to outline its valuation range soon.",
-  "topStoryId": "anthropic-moves-forward-with-initial-public-offering-plans",
+  "date": "2026-11-10T23:22:01.727Z",
+  "headline": "Anthropic Targets $1.4 Trillion Valuation in Upcoming IPO",
+  "summary": "Anthropic has confirmed that its upcoming IPO could reach a valuation as high as $1.4 trillion. The expected price per share is set between $70.00 and $78.00.",
+  "topStoryId": "anthropic-targets-1-4-trillion-valuation-in-upcoming-ipo",
   "stats": [
     {
       "label": "india-ai",
+      "value": "5"
+    },
+    {
+      "label": "ai-tools",
       "value": "4"
     },
     {
-      "label": "industry",
-      "value": "4"
-    },
-    {
-      "label": "companies",
+      "label": "ai-models",
       "value": "4"
     }
   ]
