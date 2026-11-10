@@ -1,9 +1,13 @@
 {
-  "date": "2026-11-10T02:34:28.582Z",
+  "date": "2026-11-10T10:27:15.198Z",
   "headline": "Anthropic Moves Forward With Initial Public Offering Plans",
   "summary": "Anthropic is reportedly proceeding with its public offering plans. The company is expected to outline its valuation range soon.",
   "topStoryId": "anthropic-moves-forward-with-initial-public-offering-plans",
   "stats": [
+    {
+      "label": "india-ai",
+      "value": "4"
+    },
     {
       "label": "industry",
       "value": "4"
@@ -11,10 +15,6 @@
     {
       "label": "companies",
       "value": "4"
-    },
-    {
-      "label": "india-ai",
-      "value": "3"
     }
   ]
 }
