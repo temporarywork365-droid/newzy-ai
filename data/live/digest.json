@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-11T02:55:55.957Z",
-  "headline": "Google Releases Gemini 4 Carbon Model With Agent Swarm Feature",
-  "summary": "Google is rolling out its new Gemini 4 Carbon model to the general public after an initial release to cybersecurity defenders. The company claims it is its strongest model yet, featuring an agent swarm capability.",
-  "topStoryId": "google-releases-gemini-4-carbon-model-with-agent-swarm-featu",
+  "date": "2026-11-11T10:26:29.394Z",
+  "headline": "Anthropic Targets $1.4 Trillion Valuation in Planned Public Listing",
+  "summary": "Anthropic is preparing an initial public offering seeking up to $64.4 billion. The offering places the company's valuation at roughly $1.4 trillion on the Nasdaq Global market.",
+  "topStoryId": "anthropic-targets-1-4-trillion-valuation-in-planned-public-l",
   "stats": [
     {
       "label": "ai-tools",
-      "value": "6"
+      "value": "7"
     },
     {
       "label": "industry",
-      "value": "6"
+      "value": "7"
     },
     {
-      "label": "companies",
-      "value": "5"
+      "label": "india-ai",
+      "value": "4"
     }
   ]
 }
