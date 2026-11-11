@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-10T23:22:01.727Z",
-  "headline": "Anthropic Targets $1.4 Trillion Valuation in Upcoming IPO",
-  "summary": "Anthropic has confirmed that its upcoming IPO could reach a valuation as high as $1.4 trillion. The expected price per share is set between $70.00 and $78.00.",
-  "topStoryId": "anthropic-targets-1-4-trillion-valuation-in-upcoming-ipo",
+  "date": "2026-11-11T02:55:55.957Z",
+  "headline": "Google Releases Gemini 4 Carbon Model With Agent Swarm Feature",
+  "summary": "Google is rolling out its new Gemini 4 Carbon model to the general public after an initial release to cybersecurity defenders. The company claims it is its strongest model yet, featuring an agent swarm capability.",
+  "topStoryId": "google-releases-gemini-4-carbon-model-with-agent-swarm-featu",
   "stats": [
     {
-      "label": "india-ai",
-      "value": "5"
-    },
-    {
       "label": "ai-tools",
-      "value": "4"
+      "value": "6"
     },
     {
-      "label": "ai-models",
-      "value": "4"
+      "label": "industry",
+      "value": "6"
+    },
+    {
+      "label": "companies",
+      "value": "5"
     }
   ]
 }
