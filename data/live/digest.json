@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-11T10:26:29.394Z",
+  "date": "2026-11-11T17:59:41.618Z",
   "headline": "Anthropic Targets $1.4 Trillion Valuation in Planned Public Listing",
   "summary": "Anthropic is preparing an initial public offering seeking up to $64.4 billion. The offering places the company's valuation at roughly $1.4 trillion on the Nasdaq Global market.",
   "topStoryId": "anthropic-targets-1-4-trillion-valuation-in-planned-public-l",
   "stats": [
     {
       "label": "ai-tools",
-      "value": "7"
+      "value": "8"
     },
     {
       "label": "industry",
-      "value": "7"
+      "value": "8"
     },
     {
-      "label": "india-ai",
-      "value": "4"
+      "label": "ai-agents",
+      "value": "5"
     }
   ]
 }
