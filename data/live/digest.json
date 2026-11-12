@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-12T00:09:09.751Z",
-  "headline": "Anthropic Targets $1.4 Trillion Valuation in Planned Public Listing",
-  "summary": "Anthropic is preparing an initial public offering seeking up to $64.4 billion. The offering places the company's valuation at roughly $1.4 trillion on the Nasdaq Global market.",
-  "topStoryId": "anthropic-targets-1-4-trillion-valuation-in-planned-public-l",
+  "date": "2026-11-12T22:08:33.391Z",
+  "headline": "Jensen Huang resigns from Nvidia following affair",
+  "summary": "Jensen Huang has resigned from his position at Nvidia following an affair. The departure introduces significant questions regarding U.S. and China AI infrastructure competition.",
+  "topStoryId": "jensen-huang-resigns-from-nvidia-following-affair",
   "stats": [
     {
-      "label": "industry",
-      "value": "9"
+      "label": "ai-agents",
+      "value": "5"
     },
     {
-      "label": "ai-tools",
-      "value": "7"
+      "label": "industry",
+      "value": "5"
     },
     {
       "label": "companies",
-      "value": "5"
+      "value": "4"
     }
   ]
 }
