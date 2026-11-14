@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-14T02:42:30.640Z",
+  "date": "2026-11-14T09:26:43.324Z",
   "headline": "Jensen Huang resigns from Nvidia following an affair",
   "summary": "Jensen Huang has resigned from his position at Nvidia following an affair. The departure raises questions about national security and the ongoing U.S.-China race for advanced AI infrastructure.",
   "topStoryId": "jensen-huang-resigns-from-nvidia-following-an-affair",
   "stats": [
     {
       "label": "ai-agents",
-      "value": "6"
+      "value": "7"
     },
     {
       "label": "industry",
-      "value": "6"
+      "value": "5"
     },
     {
-      "label": "india-ai",
-      "value": "4"
+      "label": "startups",
+      "value": "3"
     }
   ]
 }
