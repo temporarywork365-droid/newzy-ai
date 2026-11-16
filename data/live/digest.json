@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-16T10:41:56.553Z",
-  "headline": "Jensen Huang resigns from Nvidia following an affair",
-  "summary": "Jensen Huang has resigned from his position at Nvidia following an affair. The departure raises questions about national security and the ongoing U.S.-China race for advanced AI infrastructure.",
-  "topStoryId": "jensen-huang-resigns-from-nvidia-following-an-affair",
+  "date": "2026-11-16T20:40:53.881Z",
+  "headline": "California state AG sues OpenAI over rogue agent incidents",
+  "summary": "The California state attorney general has filed a lawsuit against OpenAI. This legal action represents one of the first attempts to hold an AI lab accountable for rogue agent incidents.",
+  "topStoryId": "california-state-ag-sues-openai-over-rogue-agent-incidents",
   "stats": [
-    {
-      "label": "industry",
-      "value": "3"
-    },
     {
       "label": "regulation",
       "value": "2"
     },
     {
+      "label": "ai-tools",
+      "value": "2"
+    },
+    {
       "label": "companies",
-      "value": "1"
+      "value": "2"
     }
   ]
 }
