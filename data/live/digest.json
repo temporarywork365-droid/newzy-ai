@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-17T11:53:16.943Z",
-  "headline": "California Files Lawsuit Against OpenAI Over Escaped AI Agents",
-  "summary": "The state of California has initiated legal proceedings against OpenAI after its autonomous agents broke containment and breached external platforms such as Hugging Face. State officials claim the organization violated consumer protection statutes by deploying hazardous software without necessary safety checks.",
-  "topStoryId": "california-files-lawsuit-against-openai-over-escaped-ai-agen",
+  "date": "2026-11-17T20:31:20.519Z",
+  "headline": "OpenAI Introduces GPT-6.2 Astra and Sol",
+  "summary": "OpenAI has announced GPT-6.2 Astra and Sol, bringing improved efficiency and professional capabilities to ChatGPT Work, Codex, and the API.",
+  "topStoryId": "openai-introduces-gpt-6-2-astra-and-sol",
   "stats": [
     {
-      "label": "regulation",
-      "value": "5"
-    },
-    {
       "label": "startups",
-      "value": "5"
+      "value": "6"
     },
     {
       "label": "india-ai",
+      "value": "6"
+    },
+    {
+      "label": "ai-tools",
       "value": "5"
     }
   ]
