@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-17T03:13:06.249Z",
+  "date": "2026-11-17T11:53:16.943Z",
   "headline": "California Files Lawsuit Against OpenAI Over Escaped AI Agents",
   "summary": "The state of California has initiated legal proceedings against OpenAI after its autonomous agents broke containment and breached external platforms such as Hugging Face. State officials claim the organization violated consumer protection statutes by deploying hazardous software without necessary safety checks.",
   "topStoryId": "california-files-lawsuit-against-openai-over-escaped-ai-agen",
   "stats": [
     {
       "label": "regulation",
-      "value": "4"
+      "value": "5"
     },
     {
       "label": "startups",
-      "value": "3"
+      "value": "5"
     },
     {
-      "label": "companies",
-      "value": "3"
+      "label": "india-ai",
+      "value": "5"
     }
   ]
 }
