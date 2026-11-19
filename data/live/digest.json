@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-19T01:13:25.617Z",
+  "date": "2026-11-19T08:48:49.623Z",
   "headline": "OpenAI Introduces GPT-6.2 Astra and Sol",
   "summary": "OpenAI has announced GPT-6.2 Astra and Sol, bringing improved efficiency and professional capabilities to ChatGPT Work, Codex, and the API.",
   "topStoryId": "openai-introduces-gpt-6-2-astra-and-sol",
@@ -9,11 +9,11 @@
       "value": "8"
     },
     {
-      "label": "india-ai",
+      "label": "industry",
       "value": "6"
     },
     {
-      "label": "industry",
+      "label": "regulation",
       "value": "5"
     }
   ]
