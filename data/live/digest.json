@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-19T08:48:49.623Z",
-  "headline": "OpenAI Introduces GPT-6.2 Astra and Sol",
-  "summary": "OpenAI has announced GPT-6.2 Astra and Sol, bringing improved efficiency and professional capabilities to ChatGPT Work, Codex, and the API.",
-  "topStoryId": "openai-introduces-gpt-6-2-astra-and-sol",
+  "date": "2026-11-19T23:52:21.573Z",
+  "headline": "Anthropic officially begins trading on Nasdaq after massive IPO",
+  "summary": "Anthropic has officially launched its public stock offering on the Nasdaq exchange. The company began trading under the ticker symbol ANT above its initial target price.",
+  "topStoryId": "anthropic-officially-begins-trading-on-nasdaq-after-massive-",
   "stats": [
     {
-      "label": "startups",
-      "value": "8"
+      "label": "ai-tools",
+      "value": "5"
     },
     {
       "label": "industry",
-      "value": "6"
+      "value": "5"
     },
     {
-      "label": "regulation",
-      "value": "5"
+      "label": "ai-agents",
+      "value": "4"
     }
   ]
 }
