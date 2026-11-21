@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-20T22:08:09.852Z",
+  "date": "2026-11-21T17:55:30.200Z",
   "headline": "Anthropic Mathematician Proves Riemann Hypothesis Using Claude",
   "summary": "Anthropic mathematician Levent Alpöge claims to have proved the Riemann hypothesis with the help of Claude. If verified, this achievement marks a seismic milestone for artificial intelligence in advanced mathematics.",
   "topStoryId": "anthropic-mathematician-proves-riemann-hypothesis-using-clau",
   "stats": [
     {
-      "label": "industry",
-      "value": "6"
-    },
-    {
-      "label": "startups",
-      "value": "5"
+      "label": "ai-agents",
+      "value": "4"
     },
     {
       "label": "research",
-      "value": "4"
+      "value": "3"
+    },
+    {
+      "label": "industry",
+      "value": "3"
     }
   ]
 }
