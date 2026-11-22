@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-21T22:49:30.733Z",
-  "headline": "Anthropic Mathematician Proves Riemann Hypothesis Using Claude",
-  "summary": "Anthropic mathematician Levent Alpöge claims to have proved the Riemann hypothesis with the help of Claude. If verified, this achievement marks a seismic milestone for artificial intelligence in advanced mathematics.",
-  "topStoryId": "anthropic-mathematician-proves-riemann-hypothesis-using-clau",
+  "date": "2026-11-22T10:46:22.346Z",
+  "headline": "OpenAI Introduces GPT-6.2 Astra and Sol",
+  "summary": "OpenAI has announced GPT-6.2 Astra and Sol, bringing improved efficiency and professional capabilities to ChatGPT Work, Codex, and the API.",
+  "topStoryId": "openai-introduces-gpt-6-2-astra-and-sol",
   "stats": [
     {
       "label": "regulation",
@@ -14,7 +14,7 @@
     },
     {
       "label": "industry",
-      "value": "3"
+      "value": "2"
     }
   ]
 }
