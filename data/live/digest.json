@@ -1,20 +1,20 @@
 {
-  "date": "2026-11-25T04:31:17.287Z",
-  "headline": "Amazon acquires Decart for $7.5B",
-  "summary": "Amazon is reportedly buying Decart’s research team and AI optimization technology for $7.5 billion. The acquisition supports Amazon's preparations to commercialize its Trainium AI chips.",
-  "topStoryId": "amazon-acquires-decart-for-7-5b",
+  "date": "2026-11-25T23:28:39.264Z",
+  "headline": "Nvidia Reverses Course and Brings Back Jensen Huang as CEO",
+  "summary": "Nvidia has made a stunning reversal by bringing back Jensen Huang as CEO. The leadership decision received backing from senior U.S. government officials.",
+  "topStoryId": "nvidia-reverses-course-and-brings-back-jensen-huang-as-ceo",
   "stats": [
     {
       "label": "industry",
-      "value": "6"
-    },
-    {
-      "label": "ai-agents",
       "value": "5"
     },
     {
       "label": "ai-tools",
-      "value": "4"
+      "value": "3"
+    },
+    {
+      "label": "ai-agents",
+      "value": "3"
     }
   ]
 }
