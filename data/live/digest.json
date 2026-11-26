@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-26T15:26:47.270Z",
-  "headline": "SpaceX authorized for satellite AI data centers",
-  "summary": "SpaceX has received authorization from the FCC to deploy satellites for AI data centers. The Starmind constellation will support orbital computing operations.",
-  "topStoryId": "spacex-authorized-for-satellite-ai-data-centers",
+  "date": "2026-11-26T23:56:55.000Z",
+  "headline": "Nvidia Reverses Course and Brings Back Jensen Huang as CEO",
+  "summary": "Nvidia has made a stunning reversal by bringing back Jensen Huang as CEO. The leadership decision received backing from senior U.S. government officials.",
+  "topStoryId": "nvidia-reverses-course-and-brings-back-jensen-huang-as-ceo",
   "stats": [
     {
       "label": "industry",
@@ -10,11 +10,11 @@
     },
     {
       "label": "regulation",
-      "value": "3"
+      "value": "4"
     },
     {
       "label": "ai-agents",
-      "value": "3"
+      "value": "2"
     }
   ]
 }
