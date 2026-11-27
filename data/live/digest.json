@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-27T06:58:40.369Z",
-  "headline": "Nvidia pauses AI server shipments to Southeast Asian nations",
-  "summary": "Nvidia has instructed manufacturing partners to halt server shipments to four Southeast Asian countries. The decision supports tightened U.S. efforts to prevent advanced AI chips from reaching China.",
-  "topStoryId": "nvidia-pauses-ai-server-shipments-to-southeast-asian-nations",
+  "date": "2026-11-27T17:15:16.684Z",
+  "headline": "SpaceX authorized for satellite AI data centers",
+  "summary": "SpaceX has received authorization from the FCC to deploy satellites for AI data centers. The Starmind constellation will support orbital computing operations.",
+  "topStoryId": "spacex-authorized-for-satellite-ai-data-centers",
   "stats": [
     {
       "label": "industry",
@@ -10,10 +10,10 @@
     },
     {
       "label": "regulation",
-      "value": "4"
+      "value": "3"
     },
     {
-      "label": "ai-agents",
+      "label": "ai-models",
       "value": "2"
     }
   ]

@@ -1,17 +1,4 @@
 {
-  "https://techcrunch.com/podcast/the-fallout-from-nvidias-jensen-huang-scandal-continues/": "2026-11-20T14:59:12.388Z",
-  "https://www.theverge.com/podcast/1038419/outage-outlook-ground-stop-tech-failure-vergecast": "2026-11-20T14:59:12.388Z",
-  "https://techcrunch.com/2026/11/20/6-ai-powered-gadgets-that-could-make-your-home-office-smarter/": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-news/goa-cabinet-approves-ai-policy-2026-puts-60-towards-skilling": "2026-11-20T14:59:12.388Z",
-  "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/it-services/ai-is-forcing-mid-tier-indian-it-companies-to-rethink-their-competitive-advantage": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-highlights/logic-pursuits-certified-as-best-firm-for-data-engineers": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-highlights/why-banks-are-betting-on-ai-orchestration-over-autonomy": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/global-tech/nvidias-crisis-has-only-just-begun-and-theres-no-jensen-charm-to-save-it": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-news/soket-ai-secures-usd-4-million-as-it-rolls-out-its-eka-1-model": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-news/zerodha-migrates-kites-user-preference-storage-from-ssdb-to-open-source-sqlite-system": "2026-11-20T14:59:12.388Z",
-  "https://analyticsindiamag.com/ai-news/samsung-electronics-names-new-heads-for-memory-system-lsi-and-mobile-businesses": "2026-11-20T14:59:12.388Z",
-  "https://huggingface.co/blog/harness-adapters-at-scale": "2026-11-20T14:59:12.388Z",
   "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/": "2026-11-20T22:08:09.848Z",
   "https://techcrunch.com/2026/11/20/daniel-ek-backs-ai-researchers-fusion-power-startup-heres-what-theyre-building/": "2026-11-20T22:08:09.848Z",
   "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/": "2026-11-20T22:08:09.848Z",
@@ -168,5 +155,10 @@
   "https://analyticsindiamag.com/ai-news/sap-considers-10000-job-cuts-across-departments-in-ai-restructuring-report": "2026-11-27T06:58:40.365Z",
   "https://analyticsindiamag.com/ai-features/microsoft-wants-to-fix-global-outages-in-an-hour-it-has-a-long-way-to-go": "2026-11-27T06:58:40.365Z",
   "https://analyticsindiamag.com/ai-news/airtel-to-invest-1200-cr-in-three-data-centres-across-assam": "2026-11-27T06:58:40.365Z",
-  "https://analyticsindiamag.com/ai-news/elevenlabs-targets-33-billion-valuation-in-fresh-funding-round-report": "2026-11-27T06:58:40.365Z"
+  "https://analyticsindiamag.com/ai-news/elevenlabs-targets-33-billion-valuation-in-fresh-funding-round-report": "2026-11-27T06:58:40.365Z",
+  "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini": "2026-11-27T17:15:16.680Z",
+  "https://analyticsindiamag.com/ai-features/from-alibaba-to-bharatgen-10-small-language-models-that-rivalled-llms-in-2026": "2026-11-27T17:15:16.680Z",
+  "https://analyticsindiamag.com/ai-news/anthropic-ditches-python-for-rust-in-messages-api-cuts-cpu-usage-by-70-and-memory-by-over-80": "2026-11-27T17:15:16.680Z",
+  "https://analyticsindiamag.com/ai-features/thomas-dohmke-wants-to-replace-pull-requests-with-ai-agent-trails": "2026-11-27T17:15:16.680Z",
+  "https://huggingface.co/blog/video-trainium3": "2026-11-27T17:15:16.680Z"
 }
